@@ -5,6 +5,8 @@
  */
 package plantio.remasterizado;
 
+import telas.UserLogin;
+
 /**
  *
  * @author Administrador
@@ -15,7 +17,13 @@ public class Program {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            UserLogin telaInicial = new UserLogin();
+            telaInicial.setVisible(true);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
 }

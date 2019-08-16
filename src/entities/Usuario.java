@@ -17,4 +17,8 @@ public class Usuario {
         this.user = user;
         this.password = password;
     }
+    
+    public String getUser() { 
+        return this.user;
+    }
 }
