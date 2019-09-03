@@ -10,15 +10,11 @@ package entities;
  * @author Administrador
  */
 public class Usuario {
-    private String user;
-    private String password;
+    public String user;
+    public String password;
     
-    public Usuario(String user, String password) {
+    public Usuario(String user, String password) throws Exception {
         this.user = user;
         this.password = password;
-    }
-    
-    public String getUser() { 
-        return this.user;
     }
 }

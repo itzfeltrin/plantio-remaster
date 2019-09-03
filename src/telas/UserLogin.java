@@ -5,26 +5,25 @@
  */
 package telas;
 
+import DAO.UsuarioDAO;
 import entities.Usuario;
 import java.awt.Cursor;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Administrador
  */
 public class UserLogin extends javax.swing.JFrame {
-
-    /**
-     * Creates new form User
-     */
+    
     public UserLogin() {
         initComponents();
         
         setLocationRelativeTo(null);
         setResizable(false);
         
-        lblCadastrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        lblLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnCadastrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     /**
@@ -37,8 +36,8 @@ public class UserLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblLogin = new javax.swing.JLabel();
-        lblCadastrar = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JLabel();
+        btnCadastrar = new javax.swing.JLabel();
         usernameInput = new javax.swing.JTextField();
         passwordInput = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
@@ -48,31 +47,33 @@ public class UserLogin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        lblLogin.setBackground(new java.awt.Color(153, 153, 153));
-        lblLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogin.setText("Login");
-        lblLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnLogin.setBackground(new java.awt.Color(153, 153, 153));
+        btnLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        btnLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnLogin.setText("Login");
+        btnLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblLoginMouseClicked(evt);
+                btnLoginMouseClicked(evt);
             }
         });
 
-        lblCadastrar.setBackground(new java.awt.Color(153, 153, 153));
-        lblCadastrar.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblCadastrar.setForeground(new java.awt.Color(51, 51, 255));
-        lblCadastrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCadastrar.setText("Cadastrar Novo");
-        lblCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCadastrar.setBackground(new java.awt.Color(153, 153, 153));
+        btnCadastrar.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnCadastrar.setForeground(new java.awt.Color(51, 51, 255));
+        btnCadastrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCadastrar.setText("Cadastrar Novo");
+        btnCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCadastrarMouseClicked(evt);
+                btnCadastrarMouseClicked(evt);
             }
         });
 
         usernameInput.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        usernameInput.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15)));
 
         passwordInput.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        passwordInput.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15)));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/017-user.png"))); // NOI18N
@@ -89,8 +90,8 @@ public class UserLogin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(passwordInput)
@@ -112,18 +113,18 @@ public class UserLogin extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(usernameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblCadastrar)
-                .addContainerGap())
+                .addComponent(btnCadastrar)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblLogin, usernameInput});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnLogin, usernameInput});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,21 +134,32 @@ public class UserLogin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCadastrarMouseClicked
+    private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked
+        this.dispose();
         UserRegister ur = new UserRegister();
         ur.setVisible(true);
-    }//GEN-LAST:event_lblCadastrarMouseClicked
+    }//GEN-LAST:event_btnCadastrarMouseClicked
 
-    private void lblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseClicked
-        Main tm = new Main(new Usuario(usernameInput.getText(), String.valueOf(passwordInput.getPassword())));
-        tm.setVisible(true);
-    }//GEN-LAST:event_lblLoginMouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        Usuario aux;
+        try {
+            aux = new Usuario(usernameInput.getText(), String.valueOf(passwordInput.getPassword()));
+            //if(UsuarioDAO.auth(aux)) {
+                Main tm = new Main(aux);
+                this.dispose();
+                tm.setVisible(true);
+            //}            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_btnLoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -186,11 +198,11 @@ public class UserLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnCadastrar;
+    private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblCadastrar;
-    private javax.swing.JLabel lblLogin;
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables
