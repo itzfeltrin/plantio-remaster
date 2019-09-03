@@ -75,9 +75,11 @@ public class UserLogin extends javax.swing.JFrame {
         passwordInput.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/017-user.png"))); // NOI18N
         jLabel1.setText("Username");
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/015-password.png"))); // NOI18N
         jLabel2.setText("Password");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
