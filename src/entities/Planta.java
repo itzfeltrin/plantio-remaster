@@ -10,5 +10,28 @@ package entities;
  * @author itzfeltrin
  */
 public class Planta {
+    public String tipo;
+    public String cultivar;
     
+    public Planta(String tipo, String cultivar) throws Exception {
+        if(tipo.length() > 0)
+            if(cultivar.length() > 0) {    
+                this.tipo = tipo;
+                this.cultivar = cultivar;
+            }
+            else {
+                throw new Exception("Cultivar inválido");
+            }
+        else {
+            throw new Exception("Tipo de planta inválido");
+        }
+    }
+
+    public String getTipo() {
+        return this.tipo;
+    }
+
+    public String getCultivar() {
+        return this.cultivar;
+    }
 }

@@ -36,6 +36,7 @@
     <Container class="javax.swing.JTabbedPane" name="tabbedPane">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="setTitle(&quot;Info Lavoura&quot;);&#xa;tabbedPane.add(&quot;Lavoura&quot;, new PanelLavoura(tabbedPane));&#xa;tabbedPane.add(&quot;Produtividade&quot;, new PanelProdutividade(tabbedPane));&#xa;tabbedPane.add(&quot;Aplica&#xe7;&#xe3;o&quot;, new PanelAplicacao(tabbedPane));"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>

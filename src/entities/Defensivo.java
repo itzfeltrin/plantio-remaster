@@ -10,5 +10,21 @@ package entities;
  * @author itzfeltrin
  */
 public class Defensivo {
+    private String nome;
+    private String classe;
     
+    public Defensivo(String nome, String clase) throws Exception {
+        if(nome.length() > 0) {
+            if(classe.length() > 0) {
+                this.nome = nome;
+                this.classe = classe;
+            }
+            else {
+                throw new Exception("Classe inválida!");
+            }
+        }
+        else {
+            throw new Exception("Nome inválido!");
+        }
+    }
 }

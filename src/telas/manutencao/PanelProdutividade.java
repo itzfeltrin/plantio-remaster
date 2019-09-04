@@ -5,8 +5,12 @@
  */
 package telas.manutencao;
 
+import entities.LavouraPlanta;
+import entities.Planta;
+import entities.Produtividade;
 import java.awt.Component;
 import java.awt.Window;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -33,10 +37,10 @@ public class PanelProdutividade extends javax.swing.JPanel {
 
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        comboboxPlanta = new javax.swing.JComboBox<>();
+        comboboxTipo = new javax.swing.JComboBox<>();
         spinnerQtd = new javax.swing.JSpinner();
         spinnerAno = new javax.swing.JSpinner();
-        lblData = new javax.swing.JTextField();
+        txtData = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -49,17 +53,17 @@ public class PanelProdutividade extends javax.swing.JPanel {
 
         jLabel9.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("Safra:");
+        jLabel9.setText("Safra");
 
         jLabel10.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("Cultivar:");
+        jLabel10.setText("Cultivar");
 
-        comboboxPlanta.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        comboboxPlanta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboboxPlanta.addActionListener(new java.awt.event.ActionListener() {
+        comboboxTipo.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        comboboxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboboxTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboboxPlantaActionPerformed(evt);
+                comboboxTipoActionPerformed(evt);
             }
         });
 
@@ -67,16 +71,17 @@ public class PanelProdutividade extends javax.swing.JPanel {
         spinnerQtd.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         spinnerAno.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        spinnerAno.setModel(new javax.swing.SpinnerNumberModel(2019, 1900, 2019, 1));
 
-        lblData.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        txtData.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Quantidade em sacas:");
+        jLabel7.setText("Quantidade em sacas");
 
         jLabel11.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel11.setText("Data de Plantio (dd/MM/yyyy):");
+        jLabel11.setText("Data de Plantio (dd/MM/yyyy)");
 
         jLabel18.setFont(new java.awt.Font("Trebuchet MS", 0, 36)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -84,7 +89,7 @@ public class PanelProdutividade extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Planta:");
+        jLabel8.setText("Tipo");
 
         comboboxCultivar.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         comboboxCultivar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -160,15 +165,15 @@ public class PanelProdutividade extends javax.swing.JPanel {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(lblData))
+                                    .addComponent(txtData))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel8)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(comboboxPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboboxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jLabel10)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(comboboxCultivar, 0, 206, Short.MAX_VALUE))
+                                    .addComponent(comboboxCultivar, 0, 228, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
@@ -199,11 +204,11 @@ public class PanelProdutividade extends javax.swing.JPanel {
                     .addComponent(jLabel8)
                     .addComponent(comboboxCultivar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(comboboxPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboboxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGravar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,15 +218,15 @@ public class PanelProdutividade extends javax.swing.JPanel {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {comboboxCultivar, comboboxPlanta, jLabel10, jLabel11, jLabel7, jLabel8, jLabel9, lblData, spinnerAno, spinnerQtd});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {comboboxCultivar, comboboxTipo, jLabel10, jLabel11, jLabel7, jLabel8, jLabel9, spinnerAno, spinnerQtd, txtData});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancelar, btnPróximo});
 
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboboxPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxPlantaActionPerformed
+    private void comboboxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxTipoActionPerformed
        
-    }//GEN-LAST:event_comboboxPlantaActionPerformed
+    }//GEN-LAST:event_comboboxTipoActionPerformed
 
     private void comboboxCultivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxCultivarActionPerformed
 
@@ -241,7 +246,20 @@ public class PanelProdutividade extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnPróximoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPróximoMouseClicked
-        this.mainTabbedPane.setSelectedIndex(2);
+        try {
+            ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);
+            Planta planta = new Planta(comboboxTipo.getSelectedItem().toString(), comboboxCultivar.getSelectedItem().toString());            
+            topFrame.planta = planta;
+            Produtividade prod = new Produtividade((int) spinnerQtd.getValue(), (int) spinnerAno.getValue(), topFrame.lavoura, topFrame.planta);
+            topFrame.produtividade = prod;
+            LavouraPlanta lavouraPlanta = new LavouraPlanta(topFrame.lavoura, topFrame.planta, txtData.getText());
+            topFrame.lavouraPlanta = lavouraPlanta;
+            topFrame.tabbedPane.setSelectedIndex(2);            
+        }
+        catch (Exception ex){            
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        
     }//GEN-LAST:event_btnPróximoMouseClicked
 
 
@@ -251,15 +269,15 @@ public class PanelProdutividade extends javax.swing.JPanel {
     private javax.swing.JLabel btnOutro;
     private javax.swing.JLabel btnPróximo;
     private javax.swing.JComboBox<String> comboboxCultivar;
-    private javax.swing.JComboBox<String> comboboxPlanta;
+    private javax.swing.JComboBox<String> comboboxTipo;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField lblData;
     private javax.swing.JSpinner spinnerAno;
     private javax.swing.JSpinner spinnerQtd;
+    private javax.swing.JTextField txtData;
     // End of variables declaration//GEN-END:variables
 }

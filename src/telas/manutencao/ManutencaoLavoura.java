@@ -5,11 +5,23 @@
  */
 package telas.manutencao;
 
+import entities.AplicacaoDefensivo;
+import entities.Lavoura;
+import entities.LavouraPlanta;
+import entities.Planta;
+import entities.Produtividade;
+
 /**
  *
  * @author itzfeltrin
  */
 public class ManutencaoLavoura extends javax.swing.JFrame {
+    
+    public Planta planta;
+    public Lavoura lavoura;
+    public LavouraPlanta lavouraPlanta;
+    public AplicacaoDefensivo aplicacaoDefensivo;
+    public Produtividade produtividade;
     
     public ManutencaoLavoura() {
         initComponents();
@@ -88,6 +100,6 @@ public class ManutencaoLavoura extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane tabbedPane;
+    public javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }

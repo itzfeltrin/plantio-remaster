@@ -5,9 +5,10 @@
  */
 package telas.manutencao;
 
+import entities.Lavoura;
 import java.awt.Component;
 import java.awt.Window;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -84,7 +85,7 @@ public class PanelLavoura extends javax.swing.JPanel {
             }
         });
 
-        spinnerExtensao.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.1d, 1.0d, 1.0d));
+        spinnerExtensao.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.1d, null, 1.0d));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -144,11 +145,24 @@ public class PanelLavoura extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnPróximoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPróximoMouseClicked
-        this.mainTabbedPane.setSelectedIndex(1);        
+        try {
+            Lavoura aux = new Lavoura(txtNome.getText(), (Double) spinnerExtensao.getValue());
+            ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);
+            topFrame.lavoura = aux;
+            topFrame.tabbedPane.setSelectedIndex(1);                    
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }//GEN-LAST:event_btnPróximoMouseClicked
 
     private void btnGravar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravar1MouseClicked
-        // TODO add your handling code here:
+        try {
+            Lavoura aux = new Lavoura(txtNome.getText(), (Double) spinnerExtensao.getValue());
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }//GEN-LAST:event_btnGravar1MouseClicked
 
 
