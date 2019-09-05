@@ -5,8 +5,12 @@
  */
 package telas.manutencao;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Window;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 
 /**
@@ -20,6 +24,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
     public PanelAplicacao(javax.swing.JTabbedPane mainTabbedPane) {
         initComponents();
         this.mainTabbedPane = mainTabbedPane;
+        setHoverEffects();
     }
 
     /**
@@ -41,7 +46,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        btnGravar1 = new javax.swing.JLabel();
+        btnGravar = new javax.swing.JLabel();
         btnOutro = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtValor = new javax.swing.JFormattedTextField();
@@ -55,8 +60,8 @@ public class PanelAplicacao extends javax.swing.JPanel {
         btnCancelar.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCancelar.setText("Cancelar");
-        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCancelarMouseClicked(evt);
@@ -88,22 +93,22 @@ public class PanelAplicacao extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel7.setText("Nome");
 
-        btnGravar1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        btnGravar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGravar1.setText("Gravar");
-        btnGravar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnGravar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGravar1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGravar.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        btnGravar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGravar.setText("Gravar");
+        btnGravar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnGravar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGravar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGravar1MouseClicked(evt);
+                btnGravarMouseClicked(evt);
             }
         });
 
         btnOutro.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btnOutro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnOutro.setText("Outro");
-        btnOutro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnOutro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOutro.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnOutro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnOutro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnOutroMouseClicked(evt);
@@ -176,7 +181,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
                         .addGap(20, 20, 20)
                         .addComponent(btnOutro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
-                        .addComponent(btnGravar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -217,7 +222,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGravar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOutro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
@@ -231,18 +236,40 @@ public class PanelAplicacao extends javax.swing.JPanel {
         ((Window) comp).dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
-    private void btnGravar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravar1MouseClicked
+    private void btnGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravarMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGravar1MouseClicked
+    }//GEN-LAST:event_btnGravarMouseClicked
 
     private void btnOutroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOutroMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnOutroMouseClicked
 
+    public void setHoverEffects() {
+        javax.swing.JLabel lista[] = {btnCancelar, btnOutro, btnGravar};
+        for(javax.swing.JLabel obj : lista) {
+            obj.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            obj.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    super.mouseEntered(e);
+                    obj.setSize(obj.getWidth() + 3, obj.getHeight() + 3);
+                    obj.setBackground(new Color(50, 50, 50));                    
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    super.mouseExited(e); 
+                    obj.setSize(obj.getWidth() - 3, obj.getHeight() - 3);
+                    obj.setBackground(new Color(233, 230, 230));
+                }
+            });
+        }
+    }
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnCancelar;
-    private javax.swing.JLabel btnGravar1;
+    private javax.swing.JLabel btnGravar;
     private javax.swing.JLabel btnOutro;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;

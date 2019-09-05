@@ -8,6 +8,7 @@ package telas;
 import DAO.UsuarioDAO;
 import entities.Usuario;
 import java.awt.Cursor;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,15 +47,25 @@ public class UserLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel1KeyPressed(evt);
+            }
+        });
 
         btnLogin.setBackground(new java.awt.Color(153, 153, 153));
         btnLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         btnLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnLogin.setText("Login");
-        btnLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
+            }
+        });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
             }
         });
 
@@ -74,6 +85,11 @@ public class UserLogin extends javax.swing.JFrame {
 
         passwordInput.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         passwordInput.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15)));
+        passwordInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordInputKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/017-user.png"))); // NOI18N
@@ -157,9 +173,32 @@ public class UserLogin extends javax.swing.JFrame {
             //}            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
+        }        
     }//GEN-LAST:event_btnLoginMouseClicked
+
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLoginKeyPressed
+
+    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
+
+    }//GEN-LAST:event_jPanel1KeyPressed
+
+    private void passwordInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordInputKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Usuario aux;
+            try {
+                aux = new Usuario(usernameInput.getText(), String.valueOf(passwordInput.getPassword()));
+                //if(UsuarioDAO.auth(aux)) {
+                    Main tm = new Main(aux);
+                    this.dispose();
+                    tm.setVisible(true);
+                //}            
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_passwordInputKeyPressed
 
     /**
      * @param args the command line arguments

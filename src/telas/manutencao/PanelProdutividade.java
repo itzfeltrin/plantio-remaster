@@ -8,8 +8,12 @@ package telas.manutencao;
 import entities.LavouraPlanta;
 import entities.Planta;
 import entities.Produtividade;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Window;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -24,6 +28,7 @@ public class PanelProdutividade extends javax.swing.JPanel {
     public PanelProdutividade(javax.swing.JTabbedPane mainTabbedPane) {
         initComponents();
         this.mainTabbedPane = mainTabbedPane;
+        setHoverEffects();
     }
 
     /**
@@ -46,10 +51,10 @@ public class PanelProdutividade extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         comboboxCultivar = new javax.swing.JComboBox<>();
-        btnGravar1 = new javax.swing.JLabel();
+        btnGravar = new javax.swing.JLabel();
         btnOutro = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JLabel();
-        btnPróximo = new javax.swing.JLabel();
+        btnProximo = new javax.swing.JLabel();
 
         jLabel9.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -99,22 +104,22 @@ public class PanelProdutividade extends javax.swing.JPanel {
             }
         });
 
-        btnGravar1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        btnGravar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGravar1.setText("Gravar");
-        btnGravar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnGravar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGravar1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGravar.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        btnGravar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGravar.setText("Gravar");
+        btnGravar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnGravar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGravar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGravar1MouseClicked(evt);
+                btnGravarMouseClicked(evt);
             }
         });
 
         btnOutro.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btnOutro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnOutro.setText("Outro");
-        btnOutro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnOutro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOutro.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnOutro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnOutro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnOutroMouseClicked(evt);
@@ -124,22 +129,22 @@ public class PanelProdutividade extends javax.swing.JPanel {
         btnCancelar.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCancelar.setText("Cancelar");
-        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCancelarMouseClicked(evt);
             }
         });
 
-        btnPróximo.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        btnPróximo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnPróximo.setText("Próximo");
-        btnPróximo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnPróximo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnPróximo.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnProximo.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        btnProximo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnProximo.setText("Próximo");
+        btnProximo.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnProximo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnProximo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPróximoMouseClicked(evt);
+                btnProximoMouseClicked(evt);
             }
         });
 
@@ -156,11 +161,11 @@ public class PanelProdutividade extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)
-                                .addComponent(btnPróximo)
+                                .addComponent(btnProximo)
                                 .addGap(20, 20, 20)
                                 .addComponent(btnOutro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)
-                                .addComponent(btnGravar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,7 +178,7 @@ public class PanelProdutividade extends javax.swing.JPanel {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jLabel10)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(comboboxCultivar, 0, 228, Short.MAX_VALUE))
+                                    .addComponent(comboboxCultivar, 0, 229, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
@@ -185,7 +190,7 @@ public class PanelProdutividade extends javax.swing.JPanel {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnPróximo});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnProximo});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,16 +216,16 @@ public class PanelProdutividade extends javax.swing.JPanel {
                     .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGravar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOutro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPróximo)
+                    .addComponent(btnProximo)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {comboboxCultivar, comboboxTipo, jLabel10, jLabel11, jLabel7, jLabel8, jLabel9, spinnerAno, spinnerQtd, txtData});
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancelar, btnPróximo});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancelar, btnProximo});
 
     }// </editor-fold>//GEN-END:initComponents
 
@@ -232,9 +237,9 @@ public class PanelProdutividade extends javax.swing.JPanel {
 
     }//GEN-LAST:event_comboboxCultivarActionPerformed
 
-    private void btnGravar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravar1MouseClicked
+    private void btnGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravarMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGravar1MouseClicked
+    }//GEN-LAST:event_btnGravarMouseClicked
 
     private void btnOutroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOutroMouseClicked
         // TODO add your handling code here:
@@ -245,7 +250,7 @@ public class PanelProdutividade extends javax.swing.JPanel {
         ((Window) comp).dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
-    private void btnPróximoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPróximoMouseClicked
+    private void btnProximoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProximoMouseClicked
         try {
             ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);
             Planta planta = new Planta(comboboxTipo.getSelectedItem().toString(), comboboxCultivar.getSelectedItem().toString());            
@@ -260,14 +265,35 @@ public class PanelProdutividade extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         
-    }//GEN-LAST:event_btnPróximoMouseClicked
+    }//GEN-LAST:event_btnProximoMouseClicked
 
+    public void setHoverEffects() {
+        javax.swing.JLabel lista[] = {btnCancelar, btnProximo, btnOutro, btnGravar};
+        for(javax.swing.JLabel obj : lista) {
+            obj.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            obj.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    super.mouseEntered(e);
+                    obj.setSize(obj.getWidth() + 3, obj.getHeight() + 3);
+                    obj.setBackground(new Color(50, 50, 50));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    super.mouseExited(e); 
+                    obj.setSize(obj.getWidth() - 3, obj.getHeight() - 3);
+                    obj.setBackground(new Color(233, 230, 230));
+                }
+            });
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnCancelar;
-    private javax.swing.JLabel btnGravar1;
+    private javax.swing.JLabel btnGravar;
     private javax.swing.JLabel btnOutro;
-    private javax.swing.JLabel btnPróximo;
+    private javax.swing.JLabel btnProximo;
     private javax.swing.JComboBox<String> comboboxCultivar;
     private javax.swing.JComboBox<String> comboboxTipo;
     private javax.swing.JLabel jLabel10;

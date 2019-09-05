@@ -5,8 +5,11 @@
  */
 package telas.manutencao;
 
+import entities.Defensivo;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -129,7 +132,12 @@ public class ManutencaoDefensivo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravarMouseClicked
-        
+        try {
+            Defensivo aux = new Defensivo(txtNome.getText(), comboboxClasse.getSelectedItem().toString());
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }//GEN-LAST:event_btnGravarMouseClicked
 
     /**
@@ -172,18 +180,20 @@ public class ManutencaoDefensivo extends javax.swing.JFrame {
     
     public void setHoverEffects() {
         javax.swing.JLabel lista[] = {btnCancelar, btnGravar};
-        for(javax.swing.JLabel obj : lista) {
+        for(javax.swing.JLabel obj : lista) {            
             obj.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     super.mouseEntered(e);
                     obj.setSize(obj.getWidth() + 3, obj.getHeight() + 3);
+                    obj.setBackground(new Color(50, 50, 50));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     super.mouseExited(e); 
                     obj.setSize(obj.getWidth() - 3, obj.getHeight() - 3);
+                    obj.setBackground(new Color(233, 230, 230));
                 }
             });
         }

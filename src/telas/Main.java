@@ -6,6 +6,7 @@
 package telas;
 
 import entities.Usuario;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import telas.listagem.ListagemDefensivo;
@@ -364,12 +365,14 @@ public class Main extends javax.swing.JFrame {
                 public void mouseEntered(MouseEvent e) {
                     super.mouseEntered(e);
                     obj.setSize(obj.getWidth() + 3, obj.getHeight() + 3);
+                    obj.setBackground(new Color(153, 153, 153));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     super.mouseExited(e); 
                     obj.setSize(obj.getWidth() - 3, obj.getHeight() - 3);
+                    obj.setBackground(new Color(233, 230, 230));
                 }
             });
         }
