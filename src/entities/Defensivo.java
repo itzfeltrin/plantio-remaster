@@ -13,7 +13,7 @@ public class Defensivo {
     private String nome;
     private String classe;
     
-    public Defensivo(String nome, String clase) throws Exception {
+    public Defensivo(String nome, String classe) throws Exception {
         if(nome.length() > 0) {
             if(classe.length() > 0) {
                 this.nome = nome;
