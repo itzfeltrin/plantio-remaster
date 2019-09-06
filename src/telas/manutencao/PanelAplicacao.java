@@ -79,7 +79,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
         jLabel4.setText("Defensivo");
 
         jSpinner1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jSpinner1.setBorder(null);
+        jSpinner1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jComboBox1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -118,7 +118,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel8.setText("Valor");
 
-        txtValor.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        txtValor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.00"))));
         txtValor.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
 
@@ -126,9 +126,9 @@ public class PanelAplicacao extends javax.swing.JPanel {
         jLabel9.setText("Observação");
 
         txtObservacao.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        txtObservacao.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        txtObservacao.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        txtData.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        txtData.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         try {
             txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {

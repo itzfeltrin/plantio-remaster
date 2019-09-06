@@ -90,7 +90,10 @@ public class PanelLavoura extends javax.swing.JPanel {
             }
         });
 
+        txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         spinnerExtensao.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.1d, null, 1.0d));
+        spinnerExtensao.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

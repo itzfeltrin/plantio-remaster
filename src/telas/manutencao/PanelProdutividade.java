@@ -66,6 +66,7 @@ public class PanelProdutividade extends javax.swing.JPanel {
 
         comboboxTipo.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         comboboxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboboxTipo.setBorder(null);
         comboboxTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboboxTipoActionPerformed(evt);
@@ -74,11 +75,14 @@ public class PanelProdutividade extends javax.swing.JPanel {
 
         spinnerQtd.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         spinnerQtd.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        spinnerQtd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         spinnerAno.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         spinnerAno.setModel(new javax.swing.SpinnerNumberModel(2019, 1900, 2019, 1));
+        spinnerAno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtData.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        txtData.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -98,6 +102,7 @@ public class PanelProdutividade extends javax.swing.JPanel {
 
         comboboxCultivar.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         comboboxCultivar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboboxCultivar.setBorder(null);
         comboboxCultivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboboxCultivarActionPerformed(evt);
