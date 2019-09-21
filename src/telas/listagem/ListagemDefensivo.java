@@ -46,7 +46,8 @@ public class ListagemDefensivo extends javax.swing.JFrame {
         for (String[] linha : resultados) {
             modelo.addRow(linha);
         }        
-        tblDefensivos.setModel(modelo);        
+        tblDefensivos.setModel(modelo);   
+        tblDefensivos.getColumnModel().getColumn(0).setMaxWidth(65);
     }
     
     public void search(String text) {
@@ -65,6 +66,7 @@ public class ListagemDefensivo extends javax.swing.JFrame {
             modelo.addRow(linha);
         }        
         tblDefensivos.setModel(modelo);
+        tblDefensivos.getColumnModel().getColumn(0).setMaxWidth(65);
     }
     
     /**

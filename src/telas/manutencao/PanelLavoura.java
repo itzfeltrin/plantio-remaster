@@ -23,8 +23,9 @@ import telas.listagem.ListagemLavoura;
  */
 public class PanelLavoura extends javax.swing.JPanel {
 
+    public Lavoura lavouraAtual;
     public ListagemLavoura ll;
-    private javax.swing.JTabbedPane mainTabbedPane;
+    public javax.swing.JTabbedPane mainTabbedPane;
     
     public PanelLavoura(javax.swing.JTabbedPane mainTabbedPane) {
         initComponents();
@@ -158,21 +159,29 @@ public class PanelLavoura extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnProximoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProximoMouseClicked
-        try {
+        if(btnProximo.isEnabled()) {
+            try {
             Lavoura aux = new Lavoura(txtNome.getText(), (Double) spinnerExtensao.getValue());
             ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);
             topFrame.lavoura = aux;
             topFrame.tabbedPane.setSelectedIndex(1);                    
-        }
-        catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
         }
     }//GEN-LAST:event_btnProximoMouseClicked
 
     private void btnGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravarMouseClicked
         try {
             Lavoura aux = new Lavoura(txtNome.getText(), (Double) spinnerExtensao.getValue());
-            LavouraDAO.insert(aux);
+            if(this.lavouraAtual != null) {
+                aux.codigo = this.lavouraAtual.codigo;
+                LavouraDAO.update(aux);
+            }
+            else {                
+                LavouraDAO.insert(aux);
+            }
             if(this.ll != null) {
                 this.ll.atualizarTabela();
             }
@@ -181,9 +190,17 @@ public class PanelLavoura extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btnGravarMouseClicked
-
-    public void setParent(ListagemLavoura ll) {
+    
+    public void setLavoura(ListagemLavoura ll, Lavoura lavoura) {
         this.ll = ll;
+        if(lavoura != null) {
+            this.lavouraAtual = lavoura;
+            txtNome.setText(lavoura.nome);
+            spinnerExtensao.setValue(lavoura.extensao);
+            btnProximo.setEnabled(false);
+            this.mainTabbedPane.setEnabledAt(1, false);
+            this.mainTabbedPane.setEnabledAt(2, false);
+        }
     }
     
     public void setHoverEffects() {

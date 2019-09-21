@@ -176,11 +176,11 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
                 aux.codigo = this.planta.codigo;                
                 PlantaDAO.update(aux);
             }
-            this.lp.atualizarTabela();
+            if(this.lp != null) this.lp.atualizarTabela();
             this.dispose();
         }
         catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro" + ex.getMessage());
         }
     }//GEN-LAST:event_btnGravarMouseClicked
 

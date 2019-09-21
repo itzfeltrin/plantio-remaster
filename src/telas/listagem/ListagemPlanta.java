@@ -48,6 +48,7 @@ public class ListagemPlanta extends javax.swing.JFrame {
             modelo.addRow(linha);
         }
         tblPlantas.setModel(modelo);
+        tblPlantas.getColumnModel().getColumn(0).setMaxWidth(65);
     }
     
     public void search(String text) {
@@ -67,6 +68,7 @@ public class ListagemPlanta extends javax.swing.JFrame {
             modelo.addRow(linha);
         }        
         tblPlantas.setModel(modelo);
+        tblPlantas.getColumnModel().getColumn(0).setMaxWidth(65);
     }
     
     /**

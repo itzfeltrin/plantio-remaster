@@ -158,7 +158,7 @@ public class ManutencaoDefensivo extends javax.swing.JFrame {
                 aux.codigo = this.defensivo.codigo;                
                 DefensivoDAO.update(aux);
             }
-            this.ld.atualizarTabela();
+            if(this.ld != null) this.ld.atualizarTabela();
             this.dispose();
         }
         catch (Exception ex) {

@@ -30,7 +30,7 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         this.usuarioAtual = user;
-        lblNome.setText(this.usuarioAtual.user);
+        //lblNome.setText(this.usuarioAtual.user);
         
         setHoverEffects();
     }
@@ -50,7 +50,6 @@ public class Main extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        lblNome = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnGerLavoura = new javax.swing.JLabel();
         btnVisLavoura = new javax.swing.JLabel();
@@ -72,11 +71,8 @@ public class Main extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Sistema de Manejo de Lavouras");
-
-        lblNome.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        lblNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/017-user.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plant.png"))); // NOI18N
+        jLabel1.setText("  Sistema de Manejo de Lavouras");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "Lavouras", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Trebuchet MS", 0, 18))); // NOI18N
         jPanel2.setOpaque(false);
@@ -85,7 +81,7 @@ public class Main extends javax.swing.JFrame {
         btnGerLavoura.setBackground(new java.awt.Color(233, 230, 230));
         btnGerLavoura.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnGerLavoura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGerLavoura.setText("Gerenciar");
+        btnGerLavoura.setText("Adicionar");
         btnGerLavoura.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnGerLavoura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGerLavoura.setOpaque(true);
@@ -140,7 +136,7 @@ public class Main extends javax.swing.JFrame {
         btnGerDefensivo.setBackground(new java.awt.Color(233, 230, 230));
         btnGerDefensivo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnGerDefensivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGerDefensivo.setText("Gerenciar");
+        btnGerDefensivo.setText("Adicionar");
         btnGerDefensivo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnGerDefensivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGerDefensivo.setOpaque(true);
@@ -190,7 +186,7 @@ public class Main extends javax.swing.JFrame {
         btnGerPlanta.setBackground(new java.awt.Color(233, 230, 230));
         btnGerPlanta.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnGerPlanta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnGerPlanta.setText("Gerenciar");
+        btnGerPlanta.setText("Adicionar");
         btnGerPlanta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnGerPlanta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGerPlanta.setOpaque(true);
@@ -242,20 +238,15 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15))
         );
 
@@ -264,10 +255,9 @@ public class Main extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(26, 26, 26)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,6 +292,7 @@ public class Main extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info.png"))); // NOI18N
         jMenu3.setText("Sobre");
         jMenu3.setMargin(new java.awt.Insets(2, 25, 2, 2));
         jMenuBar1.add(jMenu3);
@@ -431,6 +422,5 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JLabel lblNome;
     // End of variables declaration//GEN-END:variables
 }

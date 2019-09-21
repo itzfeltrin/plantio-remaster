@@ -6,7 +6,12 @@
 package telas.listagem;
 
 import DAO.LavouraDAO;
+import entities.Lavoura;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import telas.manutencao.ManutencaoLavoura;
 import telas.manutencao.PanelLavoura;
@@ -24,7 +29,8 @@ public class ListagemLavoura extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-        atualizarTabela();            
+        atualizarTabela();   
+        searchFunctionalities();
     }
 
     /**
@@ -38,7 +44,7 @@ public class ListagemLavoura extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtSearchDefensivos = new javax.swing.JTextField();
+        txtSearchLavouras = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLavouras = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -52,7 +58,7 @@ public class ListagemLavoura extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setText("Filtrar:");
 
-        txtSearchDefensivos.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        txtSearchLavouras.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
 
         tblLavouras.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         tblLavouras.setModel(new javax.swing.table.DefaultTableModel(
@@ -78,6 +84,16 @@ public class ListagemLavoura extends javax.swing.JFrame {
         tblLavouras.setSelectionBackground(new java.awt.Color(204, 204, 204));
         tblLavouras.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tblLavouras.setShowGrid(true);
+        tblLavouras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblLavourasMousePressed(evt);
+            }
+        });
+        tblLavouras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblLavourasKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblLavouras);
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -102,7 +118,7 @@ public class ListagemLavoura extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearchLavouras, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)))
                 .addGap(20, 20, 20))
@@ -114,7 +130,7 @@ public class ListagemLavoura extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchLavouras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
@@ -128,8 +144,54 @@ public class ListagemLavoura extends javax.swing.JFrame {
         ManutencaoLavoura ml = new ManutencaoLavoura();
         ml.setVisible(true);
         PanelLavoura pl = (PanelLavoura) ml.tabbedPane.getComponentAt(0);
-        pl.setParent(this);
+        pl.setLavoura(this, null);
     }//GEN-LAST:event_jLabel3MousePressed
+
+    private void tblLavourasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLavourasMousePressed
+        if (evt.getClickCount() == 2) {
+            //obtem a linha selecionada
+            int linhaSelecionada = tblLavouras.getSelectedRow();
+
+            //obtem a chave primária            
+            Integer codigo = Integer.parseInt(tblLavouras.getValueAt(linhaSelecionada, 0).toString()); //pk está na coluna 0                        
+            String nome = tblLavouras.getValueAt(linhaSelecionada, 1).toString();            
+            Double extensao = Double.parseDouble(tblLavouras.getValueAt(linhaSelecionada, 2).toString());            
+            try {
+                Lavoura aux = new Lavoura(nome, extensao);
+                aux.codigo = codigo;
+                ManutencaoLavoura ml = new ManutencaoLavoura();
+                PanelLavoura pl = (PanelLavoura) ml.tabbedPane.getComponentAt(0);
+                pl.setLavoura(this, aux);
+                ml.setVisible(true);
+                //ListagemLavouraDetalhada lld = new ListagemLavouraDetalhada(nome);
+            } catch (Exception ex) {
+                //JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_tblLavourasMousePressed
+
+    private void tblLavourasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblLavourasKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            if(tblLavouras.getSelectedRow() >= 0){
+                Object[] options = {"Sim", "Não"};
+                int opcao = JOptionPane.showOptionDialog(null, "Tem certeza? Todos os dados referentes também serão deletados", "Alerta", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(opcao == 0){
+                    int linhaSelecionada = tblLavouras.getSelectedRow();        
+                    int codigo = Integer.parseInt(tblLavouras.getValueAt(linhaSelecionada, 0).toString());
+                    LavouraDAO.delete(codigo);            
+                    atualizarTabela();
+                }        
+            }
+        }
+        if(evt.getKeyCode() == KeyEvent.VK_F1) {
+            if(tblLavouras.getSelectedRow() >= 0){                
+                int linhaSelecionada = tblLavouras.getSelectedRow();        
+                int codigo = Integer.parseInt(tblLavouras.getValueAt(linhaSelecionada, 0).toString());
+                String nome = tblLavouras.getValueAt(linhaSelecionada, 1).toString();
+                ListagemLavouraDetalhada lld = new ListagemLavouraDetalhada(nome);
+            }
+        }
+    }//GEN-LAST:event_tblLavourasKeyPressed
 
     public void atualizarTabela() {
         DefaultTableModel modelo = new DefaultTableModel(){
@@ -148,6 +210,49 @@ public class ListagemLavoura extends javax.swing.JFrame {
         }
         tblLavouras.setModel(modelo);
         tblLavouras.getColumnModel().getColumn(0).setMaxWidth(65);
+    }
+    
+    public void search(String text) {
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+        modelo.addColumn("Código");
+        modelo.addColumn("Nome");
+        modelo.addColumn("Extensão em Hectares");        
+        List<String[]> resultados = LavouraDAO.search(text);
+        for (String[] linha : resultados) {
+            modelo.addRow(linha);
+        }
+        tblLavouras.setModel(modelo);
+        tblLavouras.getColumnModel().getColumn(0).setMaxWidth(65);
+    }
+    
+    public void searchFunctionalities() {
+        txtSearchLavouras.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                search(txtSearchLavouras.getText());
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                if(txtSearchLavouras.getText().length() == 0) {
+                    atualizarTabela();
+                }
+                else {
+                    search(txtSearchLavouras.getText());
+                }
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                System.out.println("cc");
+            }
+        });
     }
     
     /**
@@ -194,6 +299,6 @@ public class ListagemLavoura extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblLavouras;
-    private javax.swing.JTextField txtSearchDefensivos;
+    private javax.swing.JTextField txtSearchLavouras;
     // End of variables declaration//GEN-END:variables
 }
