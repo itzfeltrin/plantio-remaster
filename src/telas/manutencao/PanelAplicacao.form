@@ -46,7 +46,7 @@
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="txtValor" min="-2" pref="95" max="-2" attributes="0"/>
-                                      <EmptySpace pref="77" max="32767" attributes="0"/>
+                                      <EmptySpace pref="93" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="jLabel6" pref="81" max="32767" attributes="0"/>
                                           <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
@@ -135,7 +135,7 @@
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Trebuchet MS" size="18" style="0"/>
+          <Font name="Trebuchet MS" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Dose (mL)"/>
       </Properties>
@@ -153,7 +153,7 @@
           </Border>
         </Property>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Padr&#xe3;o"/>
+          <Color id="Default Cursor"/>
         </Property>
       </Properties>
       <Events>
@@ -172,7 +172,7 @@
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Trebuchet MS" size="18" style="0"/>
+          <Font name="Trebuchet MS" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Data (dd/MM/yyyy)"/>
       </Properties>
@@ -180,7 +180,7 @@
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Trebuchet MS" size="18" style="0"/>
+          <Font name="Trebuchet MS" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Defensivo"/>
       </Properties>
@@ -262,7 +262,7 @@
           </Border>
         </Property>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Padr&#xe3;o"/>
+          <Color id="Default Cursor"/>
         </Property>
       </Properties>
       <Events>
@@ -282,7 +282,7 @@
           </Border>
         </Property>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Padr&#xe3;o"/>
+          <Color id="Default Cursor"/>
         </Property>
       </Properties>
       <Events>
@@ -292,7 +292,7 @@
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Trebuchet MS" size="18" style="0"/>
+          <Font name="Trebuchet MS" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Valor"/>
       </Properties>
@@ -315,7 +315,7 @@
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Trebuchet MS" size="18" style="0"/>
+          <Font name="Trebuchet MS" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xe3;o"/>
       </Properties>

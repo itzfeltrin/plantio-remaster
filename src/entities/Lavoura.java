@@ -10,9 +10,9 @@ package entities;
  * @author itzfeltrin
  */
 public class Lavoura {
-    private Integer codigo;
-    private String nome;
-    private Double extensao;
+    public Integer codigo;
+    public String nome;
+    public Double extensao;
     
     public Lavoura(String nome, Double extensao) throws Exception {
         if(nome.length() > 0 && extensao >= 0.1) {

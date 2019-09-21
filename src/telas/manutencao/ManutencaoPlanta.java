@@ -5,17 +5,22 @@
  */
 package telas.manutencao;
 
+import DAO.PlantaDAO;
 import entities.Planta;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
+import telas.listagem.ListagemPlanta;
 
 /**
  *
  * @author itzfeltrin
  */
 public class ManutencaoPlanta extends javax.swing.JFrame {
+
+    public ListagemPlanta lp;
+    public Planta planta;
     
     public ManutencaoPlanta() {
         initComponents();
@@ -24,6 +29,15 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
         setHoverEffects();
     }
 
+    public void setPlanta(ListagemPlanta lp, Planta planta) {       
+        this.lp = lp;
+        if(planta != null) {
+            this.planta = planta;
+            txtCultivar.setText(planta.cultivar);
+            comboboxTipo.setSelectedItem(planta.tipo);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +54,8 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
         btnGravar = new javax.swing.JLabel();
         comboboxTipo = new javax.swing.JComboBox<>();
         txtCultivar = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        spinnerKgs = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,7 +91,16 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
             }
         });
 
-        comboboxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboboxTipo.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        comboboxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trigo", "Aveia", "Soja", "Milho", "Fumo" }));
+
+        txtCultivar.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel4.setText("Kgs. por Saca");
+
+        spinnerKgs.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        spinnerKgs.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.1d, null, 1.0d));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,7 +109,7 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -95,9 +120,15 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
                             .addComponent(txtCultivar)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnGravar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(btnGravar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(spinnerKgs, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(20, 20, 20))
         );
 
@@ -107,7 +138,7 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboboxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -115,14 +146,18 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtCultivar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(spinnerKgs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGravar))
                 .addGap(20, 20, 20))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancelar, btnGravar, comboboxTipo, jLabel2, jLabel3, txtCultivar});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancelar, btnGravar, comboboxTipo, jLabel2, jLabel3, jLabel4, spinnerKgs, txtCultivar});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -132,8 +167,17 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravarMouseClicked
-        try {
-            Planta aux = new Planta(comboboxTipo.getSelectedItem().toString(), txtCultivar.getText());
+        try {            
+            Planta aux = new Planta(comboboxTipo.getSelectedItem().toString(), txtCultivar.getText(), (Double) spinnerKgs.getValue());
+            if(this.planta == null) {                                
+                PlantaDAO.insert(aux);
+            }
+            else {
+                aux.codigo = this.planta.codigo;                
+                PlantaDAO.update(aux);
+            }
+            this.lp.atualizarTabela();
+            this.dispose();
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -204,6 +248,8 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JSpinner spinnerKgs;
     private javax.swing.JTextField txtCultivar;
     // End of variables declaration//GEN-END:variables
 }

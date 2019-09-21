@@ -78,7 +78,7 @@ public class Main extends javax.swing.JFrame {
         lblNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/017-user.png"))); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true), "Lavouras", 0, 3, new java.awt.Font("Trebuchet MS", 0, 18))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "Lavouras", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Trebuchet MS", 0, 18))); // NOI18N
         jPanel2.setOpaque(false);
         jPanel2.setPreferredSize(new java.awt.Dimension(12, 130));
 
@@ -86,7 +86,7 @@ public class Main extends javax.swing.JFrame {
         btnGerLavoura.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnGerLavoura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnGerLavoura.setText("Gerenciar");
-        btnGerLavoura.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnGerLavoura.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnGerLavoura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGerLavoura.setOpaque(true);
         btnGerLavoura.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -99,7 +99,7 @@ public class Main extends javax.swing.JFrame {
         btnVisLavoura.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnVisLavoura.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnVisLavoura.setText("Visualizar");
-        btnVisLavoura.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnVisLavoura.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnVisLavoura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVisLavoura.setOpaque(true);
         btnVisLavoura.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,19 +129,19 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVisLavoura)
                     .addComponent(btnGerLavoura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnGerLavoura, btnVisLavoura});
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3), "Defensivos", 0, 3, new java.awt.Font("Trebuchet MS", 0, 18))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Defensivos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Trebuchet MS", 0, 18))); // NOI18N
         jPanel3.setOpaque(false);
 
         btnGerDefensivo.setBackground(new java.awt.Color(233, 230, 230));
         btnGerDefensivo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnGerDefensivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnGerDefensivo.setText("Gerenciar");
-        btnGerDefensivo.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnGerDefensivo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnGerDefensivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGerDefensivo.setOpaque(true);
         btnGerDefensivo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -154,7 +154,7 @@ public class Main extends javax.swing.JFrame {
         btnVisDefensivo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnVisDefensivo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnVisDefensivo.setText("Visualizar");
-        btnVisDefensivo.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnVisDefensivo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnVisDefensivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVisDefensivo.setOpaque(true);
         btnVisDefensivo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,7 +172,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(btnGerDefensivo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnVisDefensivo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap(179, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,14 +184,14 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3), "Plantas", 1, 3, new java.awt.Font("Trebuchet MS", 0, 18))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Plantas", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Trebuchet MS", 0, 18))); // NOI18N
         jPanel4.setOpaque(false);
 
         btnGerPlanta.setBackground(new java.awt.Color(233, 230, 230));
         btnGerPlanta.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnGerPlanta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnGerPlanta.setText("Gerenciar");
-        btnGerPlanta.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnGerPlanta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnGerPlanta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGerPlanta.setOpaque(true);
         btnGerPlanta.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -204,7 +204,7 @@ public class Main extends javax.swing.JFrame {
         btnVisPlanta.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnVisPlanta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnVisPlanta.setText("Visualizar");
-        btnVisPlanta.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnVisPlanta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnVisPlanta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVisPlanta.setOpaque(true);
         btnVisPlanta.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -218,7 +218,7 @@ public class Main extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(177, Short.MAX_VALUE)
+                .addContainerGap(179, Short.MAX_VALUE)
                 .addComponent(btnGerPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnVisPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,9 +269,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(27, 27, 27)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );

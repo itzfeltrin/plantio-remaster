@@ -5,11 +5,13 @@
  */
 package telas.manutencao;
 
+import DAO.DefensivoDAO;
 import entities.Defensivo;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
+import telas.listagem.ListagemDefensivo;
 
 /**
  *
@@ -17,11 +19,23 @@ import javax.swing.JOptionPane;
  */
 public class ManutencaoDefensivo extends javax.swing.JFrame {
     
+    public ListagemDefensivo ld;
+    public Defensivo defensivo;
+    
     public ManutencaoDefensivo() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
         setHoverEffects();
+    }
+    
+    public void setDefensivo(ListagemDefensivo ld, Defensivo defensivo) {
+        this.ld = ld;
+        if(defensivo != null) {
+            this.defensivo = defensivo;
+            txtNome.setText(defensivo.nome);
+            comboboxClasse.setSelectedItem(defensivo.classe);
+        }
     }
 
     /**
@@ -75,7 +89,10 @@ public class ManutencaoDefensivo extends javax.swing.JFrame {
             }
         });
 
-        comboboxClasse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboboxClasse.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        comboboxClasse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inseticida", "Acaricida", "Fungicida", "Nematicida", "Herbicida" }));
+
+        txtNome.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,7 +132,7 @@ public class ManutencaoDefensivo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboboxClasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGravar))
@@ -134,6 +151,15 @@ public class ManutencaoDefensivo extends javax.swing.JFrame {
     private void btnGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravarMouseClicked
         try {
             Defensivo aux = new Defensivo(txtNome.getText(), comboboxClasse.getSelectedItem().toString());
+            if(this.defensivo == null) {                                
+                DefensivoDAO.insert(aux);
+            }
+            else {
+                aux.codigo = this.defensivo.codigo;                
+                DefensivoDAO.update(aux);
+            }
+            this.ld.atualizarTabela();
+            this.dispose();
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());

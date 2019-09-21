@@ -54,13 +54,13 @@ public class PanelAplicacao extends javax.swing.JPanel {
         txtObservacao = new javax.swing.JTextField();
         txtData = new javax.swing.JFormattedTextField();
 
-        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel3.setText("Dose (mL)");
 
         btnCancelar.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCancelar.setText("Cancelar");
-        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -72,10 +72,10 @@ public class PanelAplicacao extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Aplicação");
 
-        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setText("Data (dd/MM/yyyy)");
 
-        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel4.setText("Defensivo");
 
         jSpinner1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -96,7 +96,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
         btnGravar.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btnGravar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnGravar.setText("Gravar");
-        btnGravar.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnGravar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnGravar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGravar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -107,7 +107,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
         btnOutro.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btnOutro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnOutro.setText("Outro");
-        btnOutro.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnOutro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnOutro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnOutro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -115,14 +115,14 @@ public class PanelAplicacao extends javax.swing.JPanel {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel8.setText("Valor");
 
         txtValor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.00"))));
         txtValor.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel9.setText("Observação");
 
         txtObservacao.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -166,7 +166,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
                                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
                                         .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

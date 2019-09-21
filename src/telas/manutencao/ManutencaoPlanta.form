@@ -26,7 +26,7 @@
           <Component id="jLabel1" alignment="0" pref="580" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -38,11 +38,20 @@
                           <Component id="txtCultivar" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnCancelar" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="btnGravar" linkSize="2" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="btnCancelar" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="btnGravar" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="spinnerKgs" min="-2" pref="56" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -53,7 +62,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jLabel1" min="-2" pref="99" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" linkSize="1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="comboboxTipo" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -63,7 +72,12 @@
                   <Component id="jLabel3" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtCultivar" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="61" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel4" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="spinnerKgs" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="33" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCancelar" linkSize="1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="btnGravar" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -112,7 +126,7 @@
           </Border>
         </Property>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Padr&#xe3;o"/>
+          <Color id="Hand Cursor"/>
         </Property>
       </Properties>
       <Events>
@@ -132,7 +146,7 @@
           </Border>
         </Property>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Padr&#xe3;o"/>
+          <Color id="Hand Cursor"/>
         </Property>
       </Properties>
       <Events>
@@ -141,12 +155,16 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="comboboxTipo">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Trebuchet MS" size="14" style="0"/>
+        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Trigo"/>
+            <StringItem index="1" value="Aveia"/>
+            <StringItem index="2" value="Soja"/>
+            <StringItem index="3" value="Milho"/>
+            <StringItem index="4" value="Fumo"/>
           </StringArray>
         </Property>
       </Properties>
@@ -155,6 +173,29 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCultivar">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Trebuchet MS" size="14" style="0"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Trebuchet MS" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Kgs. por Saca"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spinnerKgs">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Trebuchet MS" size="14" style="0"/>
+        </Property>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="1.0" minimum="0.1" numberType="java.lang.Double" stepSize="1.0" type="number"/>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

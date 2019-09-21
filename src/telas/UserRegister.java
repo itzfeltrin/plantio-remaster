@@ -176,15 +176,21 @@ public class UserRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMouseClicked
 
     private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked
-        try {
-            Usuario aux = new Usuario(usernameInput.getText(), String.valueOf(passwordInput.getPassword()));
-            //UsuarioDAO.insert(aux);
-            Main main = new Main(aux);
-            this.dispose();
-            main.setVisible(rootPaneCheckingEnabled);
+        if (!masterPasswordInput.getText().equals("123")){
+            JOptionPane.showMessageDialog(null, "Senha mestre não confere.");
         }
-        catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+        else {
+            try {
+            Usuario aux = new Usuario(usernameInput.getText(), String.valueOf(passwordInput.getPassword()));
+            if(UsuarioDAO.insert(aux)) {
+                Main main = new Main(aux);
+                this.dispose();
+                main.setVisible(rootPaneCheckingEnabled);
+                }                
+            }
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            }
         }
     }//GEN-LAST:event_btnCadastrarMouseClicked
 

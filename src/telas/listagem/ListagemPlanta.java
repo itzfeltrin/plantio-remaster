@@ -5,6 +5,15 @@
  */
 package telas.listagem;
 
+import DAO.PlantaDAO;
+import entities.Planta;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import telas.manutencao.ManutencaoPlanta;
+
 /**
  *
  * @author itzfeltrin
@@ -17,9 +26,49 @@ public class ListagemPlanta extends javax.swing.JFrame {
     public ListagemPlanta() {
         initComponents();
         setResizable(false);
-        setLocationRelativeTo(null);        
+        setLocationRelativeTo(null);   
+        atualizarTabela();
+        searchFunctionalities();
     }
 
+    public void atualizarTabela() {
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+        modelo.addColumn("Código");
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Cultivar");
+        modelo.addColumn("Kgs");
+        List<String[]> resultados = PlantaDAO.consult();
+        for (String[] linha : resultados) {
+            modelo.addRow(linha);
+        }
+        tblPlantas.setModel(modelo);
+    }
+    
+    public void search(String text) {
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+        modelo.addColumn("Código");
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Cultivar");
+        modelo.addColumn("Kgs");
+        List<String[]> resultados = PlantaDAO.search(text);
+        for (String[] linha : resultados) {
+            modelo.addRow(linha);
+        }        
+        tblPlantas.setModel(modelo);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,9 +80,10 @@ public class ListagemPlanta extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtSearchDefensivos = new javax.swing.JTextField();
+        txtSearchPlantas = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPlantas = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -44,7 +94,7 @@ public class ListagemPlanta extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setText("Filtrar:");
 
-        txtSearchDefensivos.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        txtSearchPlantas.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
 
         tblPlantas.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         tblPlantas.setModel(new javax.swing.table.DefaultTableModel(
@@ -70,7 +120,31 @@ public class ListagemPlanta extends javax.swing.JFrame {
         tblPlantas.setSelectionBackground(new java.awt.Color(204, 204, 204));
         tblPlantas.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tblPlantas.setShowGrid(true);
+        tblPlantas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblPlantasMousePressed(evt);
+            }
+        });
+        tblPlantas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblPlantasKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblPlantasKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPlantas);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
+        jLabel3.setText("NOVA");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,20 +156,24 @@ public class ListagemPlanta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSearchPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearchPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
@@ -103,6 +181,77 @@ public class ListagemPlanta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblPlantasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPlantasMousePressed
+        if (evt.getClickCount() == 2) {
+            //obtem a linha selecionada
+            int linhaSelecionada = tblPlantas.getSelectedRow();
+
+            //obtem a chave primária            
+            String tipo = tblPlantas.getValueAt(linhaSelecionada, 1).toString(); //pk está na coluna 0            
+            String cultivar = tblPlantas.getValueAt(linhaSelecionada, 2).toString(); //pk está na coluna 0
+            Double kgs = Double.parseDouble(tblPlantas.getValueAt(linhaSelecionada, 3).toString());
+            try {
+                Planta aux = new Planta(tipo, cultivar, kgs);
+                aux.codigo = Integer.parseInt((String) tblPlantas.getValueAt(linhaSelecionada, 0));
+                ManutencaoPlanta mp = new ManutencaoPlanta();
+                mp.setPlanta(this, aux);
+                mp.setVisible(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            }
+            
+        }
+    }//GEN-LAST:event_tblPlantasMousePressed
+
+    private void tblPlantasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPlantasKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblPlantasKeyReleased
+
+    private void tblPlantasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPlantasKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            if(tblPlantas.getSelectedRow() >= 0){
+                Object[] options = {"Sim", "Não"};
+                int opcao = JOptionPane.showOptionDialog(null, "Tem certeza?", "Alerta", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(opcao == 0){
+                    int linhaSelecionada = tblPlantas.getSelectedRow();        
+                    int codigo = Integer.parseInt(tblPlantas.getValueAt(linhaSelecionada, 0).toString());
+                    PlantaDAO.delete(codigo);            
+                    atualizarTabela();
+                }        
+            }
+        }
+    }//GEN-LAST:event_tblPlantasKeyPressed
+
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+        ManutencaoPlanta mp = new ManutencaoPlanta();
+        mp.setVisible(true);
+        mp.setPlanta(this, null);
+    }//GEN-LAST:event_jLabel3MousePressed
+
+    public void searchFunctionalities() {
+        txtSearchPlantas.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                search(txtSearchPlantas.getText());
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                if(txtSearchPlantas.getText().length() == 0) {
+                    atualizarTabela();
+                }
+                else {
+                    search(txtSearchPlantas.getText());
+                }
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                System.out.println("cc");
+            }
+        });
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -142,8 +291,9 @@ public class ListagemPlanta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPlantas;
-    private javax.swing.JTextField txtSearchDefensivos;
+    private javax.swing.JTextField txtSearchPlantas;
     // End of variables declaration//GEN-END:variables
 }

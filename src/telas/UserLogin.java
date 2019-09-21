@@ -57,7 +57,7 @@ public class UserLogin extends javax.swing.JFrame {
         btnLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         btnLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnLogin.setText("Login");
-        btnLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        btnLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
@@ -80,10 +80,10 @@ public class UserLogin extends javax.swing.JFrame {
             }
         });
 
-        usernameInput.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        usernameInput.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         usernameInput.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15)));
 
-        passwordInput.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        passwordInput.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         passwordInput.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15)));
         passwordInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -166,11 +166,11 @@ public class UserLogin extends javax.swing.JFrame {
         Usuario aux;
         try {
             aux = new Usuario(usernameInput.getText(), String.valueOf(passwordInput.getPassword()));
-            //if(UsuarioDAO.auth(aux)) {
+            if(UsuarioDAO.auth(aux)) {
                 Main tm = new Main(aux);
                 this.dispose();
                 tm.setVisible(true);
-            //}            
+            }            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }        
@@ -189,11 +189,11 @@ public class UserLogin extends javax.swing.JFrame {
             Usuario aux;
             try {
                 aux = new Usuario(usernameInput.getText(), String.valueOf(passwordInput.getPassword()));
-                //if(UsuarioDAO.auth(aux)) {
+                if(UsuarioDAO.auth(aux)) {
                     Main tm = new Main(aux);
                     this.dispose();
                     tm.setVisible(true);
-                //}            
+                }            
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }

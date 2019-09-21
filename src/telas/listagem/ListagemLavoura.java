@@ -5,6 +5,12 @@
  */
 package telas.listagem;
 
+import DAO.LavouraDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import telas.manutencao.ManutencaoLavoura;
+import telas.manutencao.PanelLavoura;
+
 /**
  *
  * @author itzfeltrin
@@ -17,7 +23,8 @@ public class ListagemLavoura extends javax.swing.JFrame {
     public ListagemLavoura() {
         initComponents();
         setResizable(false);
-        setLocationRelativeTo(null);        
+        setLocationRelativeTo(null);
+        atualizarTabela();            
     }
 
     /**
@@ -34,6 +41,7 @@ public class ListagemLavoura extends javax.swing.JFrame {
         txtSearchDefensivos = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLavouras = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -72,6 +80,16 @@ public class ListagemLavoura extends javax.swing.JFrame {
         tblLavouras.setShowGrid(true);
         jScrollPane1.setViewportView(tblLavouras);
 
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
+        jLabel3.setText("NOVA");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,21 +99,24 @@ public class ListagemLavoura extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
@@ -103,6 +124,32 @@ public class ListagemLavoura extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+        ManutencaoLavoura ml = new ManutencaoLavoura();
+        ml.setVisible(true);
+        PanelLavoura pl = (PanelLavoura) ml.tabbedPane.getComponentAt(0);
+        pl.setParent(this);
+    }//GEN-LAST:event_jLabel3MousePressed
+
+    public void atualizarTabela() {
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+        modelo.addColumn("Código");
+        modelo.addColumn("Nome");
+        modelo.addColumn("Extensão em Hectares");        
+        List<String[]> resultados = LavouraDAO.consult();
+        for (String[] linha : resultados) {
+            modelo.addRow(linha);
+        }
+        tblLavouras.setModel(modelo);
+        tblLavouras.getColumnModel().getColumn(0).setMaxWidth(65);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -144,6 +191,7 @@ public class ListagemLavoura extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblLavouras;
     private javax.swing.JTextField txtSearchDefensivos;

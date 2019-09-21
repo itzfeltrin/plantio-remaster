@@ -5,6 +5,15 @@
  */
 package telas.listagem;
 
+import DAO.DefensivoDAO;
+import entities.Defensivo;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import telas.manutencao.ManutencaoDefensivo;
+
 /**
  *
  * @author itzfeltrin
@@ -17,9 +26,47 @@ public class ListagemDefensivo extends javax.swing.JFrame {
     public ListagemDefensivo() {
         initComponents();
         setResizable(false);
-        setLocationRelativeTo(null);        
+        setLocationRelativeTo(null);
+        atualizarTabela();
+        searchFunctionalities();
     }
 
+    public void atualizarTabela() {
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+        modelo.addColumn("Código");
+        modelo.addColumn("Nome");
+        modelo.addColumn("Classe");
+        List<String[]> resultados = DefensivoDAO.consult();
+        for (String[] linha : resultados) {
+            modelo.addRow(linha);
+        }        
+        tblDefensivos.setModel(modelo);        
+    }
+    
+    public void search(String text) {
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+        modelo.addColumn("Código");
+        modelo.addColumn("Nome");
+        modelo.addColumn("Classe");
+        List<String[]> resultados = DefensivoDAO.search(text);
+        for (String[] linha : resultados) {
+            modelo.addRow(linha);
+        }        
+        tblDefensivos.setModel(modelo);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,8 +81,14 @@ public class ListagemDefensivo extends javax.swing.JFrame {
         txtSearchDefensivos = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDefensivos = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -70,7 +123,28 @@ public class ListagemDefensivo extends javax.swing.JFrame {
         tblDefensivos.setSelectionBackground(new java.awt.Color(204, 204, 204));
         tblDefensivos.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tblDefensivos.setShowGrid(true);
+        tblDefensivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblDefensivosMousePressed(evt);
+            }
+        });
+        tblDefensivos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblDefensivosKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDefensivos);
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
+        jLabel3.setText("NOVO");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,29 +154,102 @@ public class ListagemDefensivo extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSearchDefensivos)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearchDefensivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void tblDefensivosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDefensivosMousePressed
+        if (evt.getClickCount() == 2) {
+            //obtem a linha selecionada
+            int linhaSelecionada = tblDefensivos.getSelectedRow();
 
+            //obtem a chave primária            
+            String nome = tblDefensivos.getValueAt(linhaSelecionada, 1).toString(); //pk está na coluna 0            
+            String classe = tblDefensivos.getValueAt(linhaSelecionada, 2).toString(); //pk está na coluna 0
+            try {
+                Defensivo aux = new Defensivo(nome, classe);
+                aux.codigo = Integer.parseInt((String) tblDefensivos.getValueAt(linhaSelecionada, 0).toString());
+                ManutencaoDefensivo md = new ManutencaoDefensivo();
+                md.setDefensivo(this, aux);
+                md.setVisible(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            }            
+        }
+    }//GEN-LAST:event_tblDefensivosMousePressed
+
+    private void tblDefensivosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblDefensivosKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            if(tblDefensivos.getSelectedRow() >= 0){
+                Object[] options = {"Sim", "Não"};
+                int opcao = JOptionPane.showOptionDialog(null, "Tem certeza?", "Alerta", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(opcao == 0){
+                    int linhaSelecionada = tblDefensivos.getSelectedRow();        
+                    int codigo = Integer.parseInt(tblDefensivos.getValueAt(linhaSelecionada, 0).toString());
+                    DefensivoDAO.delete(codigo);            
+                    atualizarTabela();
+                }        
+            }
+        }
+    }//GEN-LAST:event_tblDefensivosKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        
+    }//GEN-LAST:event_formKeyPressed
+
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+        ManutencaoDefensivo md = new ManutencaoDefensivo();
+        md.setVisible(true);
+        md.setDefensivo(this, null);
+    }//GEN-LAST:event_jLabel3MousePressed
+
+    public void searchFunctionalities() {
+        txtSearchDefensivos.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                search(txtSearchDefensivos.getText());
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                if(txtSearchDefensivos.getText().length() == 0) {
+                    atualizarTabela();
+                }
+                else {
+                    search(txtSearchDefensivos.getText());
+                }
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                System.out.println("cc");
+            }
+        });
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -141,6 +288,7 @@ public class ListagemDefensivo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDefensivos;
     private javax.swing.JTextField txtSearchDefensivos;

@@ -10,8 +10,9 @@ package entities;
  * @author itzfeltrin
  */
 public class Defensivo {
-    private String nome;
-    private String classe;
+    public Integer codigo;
+    public String nome;
+    public String classe;
     
     public Defensivo(String nome, String classe) throws Exception {
         if(nome.length() > 0) {

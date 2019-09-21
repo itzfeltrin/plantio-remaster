@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 public class UsuarioDAO {
         
     public static boolean insert(Usuario usuario) {
-        String sql = "INSERT INTO usuario (usuario, senha) VALUES (?, ?)";
+        String sql = "INSERT INTO usuario (nome, senha) VALUES (?, ?)";
         try {
             if(exists(usuario)) {
                 throw new Exception("Usuário já existe!");                
@@ -38,17 +38,17 @@ public class UsuarioDAO {
     }
     
     public static boolean exists(Usuario usuario) {
-        String sql = "SELECT * FROM usuario WHERE usuario = ?";
+        String sql = "SELECT * FROM usuario WHERE nome = ?";
         try {
             PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);
             ps.setString(1, usuario.user);            
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                System.out.println("Usuario já existe!");
+                //System.out.println("Usuario já existe!");
                 return true;
             }
             else {
-                JOptionPane.showMessageDialog(null, "Usuario pode ser criado.");
+                //JOptionPane.showMessageDialog(null, "Usuario pode ser criado.");
                 return false;
             }            
         }
@@ -59,7 +59,7 @@ public class UsuarioDAO {
     }
     
     public static boolean auth(Usuario usuario) {
-        String sql = "SELECT * FROM usuario WHERE usuario = ? and senha = ?";
+        String sql = "SELECT * FROM usuario WHERE nome = ? and senha = ?";
         try {
             PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);
             ps.setString(1, usuario.user);
