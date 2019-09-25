@@ -110,4 +110,44 @@ public class DefensivoDAO {
             return null;
         }
     }
+    
+    public static ArrayList<String> getClasse() {
+        ArrayList<String> resultados = new ArrayList<>();
+        String sql = "SELECT DISTINCT(classe) FROM defensivo";
+        PreparedStatement ps;
+        try {
+            ps = conexao.Conexao.getConexao().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String classe = rs.getString("classe");
+                resultados.add(classe);
+            }
+            return resultados;
+        } 
+        catch (SQLException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        }
+    }
+    
+    public static ArrayList<Defensivo> getDefensivoByClasse(String text) {
+        ArrayList<Defensivo> resultados = new ArrayList<>();        
+        String sql = "SELECT codigo, nome, classe FROM defensivo WHERE classe = ?";
+        PreparedStatement ps;
+        try {
+            ps = conexao.Conexao.getConexao().prepareStatement(sql);
+            ps.setString(1, text);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Defensivo aux = new Defensivo(rs.getString("nome"), rs.getString("classe"));
+                aux.codigo = rs.getInt("codigo");
+                resultados.add(aux);
+            }
+            return resultados;
+        } 
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        }
+    }
 }

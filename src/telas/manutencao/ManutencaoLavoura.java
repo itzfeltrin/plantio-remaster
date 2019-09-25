@@ -44,7 +44,7 @@ public class ManutencaoLavoura extends javax.swing.JFrame {
 
         setTitle("Info Lavoura");
         tabbedPane.add("Lavoura", new PanelLavoura(tabbedPane));
-        tabbedPane.add("Produtividade", new PanelProdutividade(tabbedPane));
+        //tabbedPane.add("Produtividade", new PanelProdutividade(tabbedPane));
         tabbedPane.add("Aplicação", new PanelAplicacao(tabbedPane));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

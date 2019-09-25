@@ -74,6 +74,7 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
         btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setOpaque(true);
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCancelarMouseClicked(evt);
@@ -85,6 +86,7 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
         btnGravar.setText("Gravar");
         btnGravar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnGravar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGravar.setOpaque(true);
         btnGravar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGravarMouseClicked(evt);
@@ -227,15 +229,21 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     super.mouseEntered(e);
-                    obj.setSize(obj.getWidth() + 3, obj.getHeight() + 3);
-                    obj.setBackground(new Color(50, 50, 50));
+                    obj.setSize(obj.getWidth() + 3, obj.getHeight() + 3);obj.setForeground(Color.WHITE);
+                    if(obj.equals(btnCancelar)) {
+                        obj.setBackground(new Color(255, 0, 0));
+                    }
+                    else {
+                        obj.setBackground(new Color(153, 153, 153));                        
+                    }
                 }
 
                 @Override
-                public void mouseExited(MouseEvent e) {
+                public void mouseExited(MouseEvent e) {                    
                     super.mouseExited(e); 
                     obj.setSize(obj.getWidth() - 3, obj.getHeight() - 3);
                     obj.setBackground(new Color(233, 230, 230));
+                    obj.setForeground(Color.BLACK);
                 }
             });
         }

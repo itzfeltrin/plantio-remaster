@@ -10,16 +10,19 @@ package entities;
  * @author itzfeltrin
  */
 public class Aplicacao {
-    private String data;
-    private String observacao;
-    private Lavoura lavoura;
+    public Integer codigo;
+    public String data;
+    public String observacao;
+    public Double valor;
+    public Lavoura lavoura;
     
     public Aplicacao(String data, String observacao, Lavoura lavoura) throws Exception {
         if(data.length() == 10) {
             this.data = data;
             this.lavoura = lavoura;
+            this.valor = 0.00;
             if(observacao.length() == 0) this.observacao = null;
-            else this.observacao = observacao;
+            else this.observacao = observacao;            
         }
         else {
             throw new Exception ("Data de aplicação inválida!");

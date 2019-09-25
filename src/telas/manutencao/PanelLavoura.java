@@ -59,6 +59,7 @@ public class PanelLavoura extends javax.swing.JPanel {
         btnCancelar.setText("Cancelar");
         btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCancelar.setOpaque(true);
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCancelarMouseClicked(evt);
@@ -70,6 +71,7 @@ public class PanelLavoura extends javax.swing.JPanel {
         btnProximo.setText("Próximo");
         btnProximo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnProximo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnProximo.setOpaque(true);
         btnProximo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnProximoMouseClicked(evt);
@@ -88,6 +90,7 @@ public class PanelLavoura extends javax.swing.JPanel {
         btnGravar.setText("Gravar");
         btnGravar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnGravar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGravar.setOpaque(true);
         btnGravar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGravarMouseClicked(evt);
@@ -161,10 +164,10 @@ public class PanelLavoura extends javax.swing.JPanel {
     private void btnProximoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProximoMouseClicked
         if(btnProximo.isEnabled()) {
             try {
-            Lavoura aux = new Lavoura(txtNome.getText(), (Double) spinnerExtensao.getValue());
-            ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);
-            topFrame.lavoura = aux;
-            topFrame.tabbedPane.setSelectedIndex(1);                    
+                Lavoura aux = new Lavoura(txtNome.getText(), (Double) spinnerExtensao.getValue());
+                ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);
+                topFrame.lavoura = aux;
+                topFrame.tabbedPane.setSelectedIndex(1);                    
             }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -211,15 +214,21 @@ public class PanelLavoura extends javax.swing.JPanel {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     super.mouseEntered(e);
-                    obj.setSize(obj.getWidth() + 3, obj.getHeight() + 3);
-                    obj.setBackground(new Color(50, 50, 50));
+                    obj.setSize(obj.getWidth() + 3, obj.getHeight() + 3);obj.setForeground(Color.WHITE);
+                    if(obj.equals(btnCancelar)) {
+                        obj.setBackground(new Color(255, 0, 0));
+                    }
+                    else {
+                        obj.setBackground(new Color(153, 153, 153));                        
+                    }
                 }
 
                 @Override
-                public void mouseExited(MouseEvent e) {
+                public void mouseExited(MouseEvent e) {                    
                     super.mouseExited(e); 
                     obj.setSize(obj.getWidth() - 3, obj.getHeight() - 3);
                     obj.setBackground(new Color(233, 230, 230));
+                    obj.setForeground(Color.BLACK);
                 }
             });
         }
