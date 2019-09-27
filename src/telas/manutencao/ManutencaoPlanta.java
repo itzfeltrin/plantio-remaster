@@ -35,6 +35,7 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
             this.planta = planta;
             txtCultivar.setText(planta.cultivar);
             comboboxTipo.setSelectedItem(planta.tipo);
+            spinnerKgs.setValue(planta.kgsPorSaca);
         }
     }
     

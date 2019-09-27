@@ -279,10 +279,10 @@ public class PanelProdutividade extends javax.swing.JPanel {
         try {                        
             //Planta planta = new Planta(comboboxTipo.getSelectedItem().toString(), comboboxCultivar.getSelectedItem().toString());            
             //topFrame.planta = planta;
-            Produtividade prod = new Produtividade((int) spinnerQtd.getValue(), (int) spinnerAno.getValue(), topFrame.lavoura, topFrame.planta);
+            /*Produtividade prod = new Produtividade((int) spinnerQtd.getValue(), (int) spinnerAno.getValue(), topFrame.lavoura, topFrame.planta);
             topFrame.produtividade = prod;            
             LavouraPlanta lavouraPlanta = new LavouraPlanta(topFrame.lavoura, topFrame.planta, txtData.getText());
-            topFrame.lavouraPlanta = lavouraPlanta;                      
+            topFrame.lavouraPlanta = lavouraPlanta;                      */
         }
         catch (Exception ex){                        
             JOptionPane.showMessageDialog(null, ex.getMessage());

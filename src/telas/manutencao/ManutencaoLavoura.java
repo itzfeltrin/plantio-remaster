@@ -5,28 +5,28 @@
  */
 package telas.manutencao;
 
+import entities.Aplicacao;
 import entities.AplicacaoDefensivo;
+import entities.Defensivo;
 import entities.Lavoura;
-import entities.LavouraPlanta;
-import entities.Planta;
-import entities.Produtividade;
+import java.util.ArrayList;
 
 /**
  *
  * @author itzfeltrin
  */
 public class ManutencaoLavoura extends javax.swing.JFrame {
-    
-    public Planta planta;
-    public Lavoura lavoura;
-    public LavouraPlanta lavouraPlanta;
-    public AplicacaoDefensivo aplicacaoDefensivo;
-    public Produtividade produtividade;
+        
+    public Lavoura lavoura;    
+    public ArrayList<Aplicacao> listaAplicacao = new ArrayList<>();     
+    public ArrayList<Defensivo> listaDefensivo = new ArrayList<>(); 
+    public ArrayList<AplicacaoDefensivo> listaAplicacaoDefensivo = new ArrayList<>(); 
     
     public ManutencaoLavoura() {
         initComponents();
         setResizable(false);
-        setLocationRelativeTo(null);        
+        setLocationRelativeTo(null);         
+        this.tabbedPane.setEnabledAt(1, false);
     }
 
     /**

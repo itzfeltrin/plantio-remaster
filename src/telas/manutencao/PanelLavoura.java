@@ -167,7 +167,8 @@ public class PanelLavoura extends javax.swing.JPanel {
                 Lavoura aux = new Lavoura(txtNome.getText(), (Double) spinnerExtensao.getValue());
                 ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);
                 topFrame.lavoura = aux;
-                topFrame.tabbedPane.setSelectedIndex(1);                    
+                topFrame.tabbedPane.setSelectedIndex(1);
+                topFrame.tabbedPane.setEnabledAt(1, true);
             }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -187,7 +188,9 @@ public class PanelLavoura extends javax.swing.JPanel {
             }
             if(this.ll != null) {
                 this.ll.atualizarTabela();
-            }
+                ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);
+                topFrame.dispose();
+            }            
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -202,7 +205,7 @@ public class PanelLavoura extends javax.swing.JPanel {
             spinnerExtensao.setValue(lavoura.extensao);
             btnProximo.setEnabled(false);
             this.mainTabbedPane.setEnabledAt(1, false);
-            this.mainTabbedPane.setEnabledAt(2, false);
+            //this.mainTabbedPane.setEnabledAt(2, false);
         }
     }
     

@@ -66,7 +66,7 @@ public class UsuarioDAO {
             ps.setString(2, usuario.password);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                System.out.println("Login OK!");
+                //System.out.println("Login OK!");
                 return true;
             }
             else {

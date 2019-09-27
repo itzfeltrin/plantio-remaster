@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import telas.manutencao.ManutencaoDefensivo;
 import telas.manutencao.ManutencaoLavoura;
 import telas.manutencao.PanelLavoura;
 
@@ -162,10 +163,10 @@ public class ListagemLavoura extends javax.swing.JFrame {
                 ManutencaoLavoura ml = new ManutencaoLavoura();
                 PanelLavoura pl = (PanelLavoura) ml.tabbedPane.getComponentAt(0);
                 pl.setLavoura(this, aux);
-                ml.setVisible(true);
+                ml.setVisible(true);                
                 //ListagemLavouraDetalhada lld = new ListagemLavouraDetalhada(nome);
             } catch (Exception ex) {
-                //JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
             }
         }
     }//GEN-LAST:event_tblLavourasMousePressed

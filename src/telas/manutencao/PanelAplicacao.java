@@ -7,6 +7,7 @@ package telas.manutencao;
 
 import DAO.DefensivoDAO;
 import entities.Aplicacao;
+import entities.AplicacaoDefensivo;
 import entities.Defensivo;
 import java.awt.Color;
 import java.awt.Component;
@@ -15,8 +16,6 @@ import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -30,6 +29,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
     public ArrayList<Defensivo> listaDef;
     public Defensivo defensivo;
     public Aplicacao aplicacao;
+    public AplicacaoDefensivo aplicacaoDefensivo;
         
     public PanelAplicacao(javax.swing.JTabbedPane mainTabbedPane) {
         initComponents();
@@ -260,8 +260,11 @@ public class PanelAplicacao extends javax.swing.JPanel {
     private void btnGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravarMouseClicked
         try {
             ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);
-            Aplicacao aplicacao = new Aplicacao(txtData.getText(), txtObservacao.getText(), topFrame.lavoura);
-            //Defensivo             
+            this.aplicacao = new Aplicacao(txtData.getText(), txtObservacao.getText(), topFrame.lavoura);
+            if(this.defensivo.codigo != null) {
+                this.aplicacaoDefensivo = new AplicacaoDefensivo(this.aplicacao, this.defensivo, Double.parseDouble(txtValor.getText()), (Double) spinnerDose.getValue());
+            }
+            
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
@@ -269,7 +272,8 @@ public class PanelAplicacao extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGravarMouseClicked
 
     private void btnOutroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOutroMouseClicked
-        // TODO add your handling code here:
+        //Aplicacao aplicacao = new Aplicacao(txtData.getText(), txtObservacao.getText(), topFrame.lavoura);
+        //Defensivo defensivo = new Defensivo();
     }//GEN-LAST:event_btnOutroMouseClicked
 
     private void comboboxClasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxClasseActionPerformed
