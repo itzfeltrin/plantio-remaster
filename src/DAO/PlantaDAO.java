@@ -37,7 +37,7 @@ public class PlantaDAO {
     
     public static ArrayList<String[]> consult() {
         ArrayList<String[]> resultados = new ArrayList<>();
-        String sql = "SELECT codigo, tipo, cultivar, kgs FROM planta";
+        String sql = "SELECT codigo, tipo, cultivar, kgs FROM planta ORDER BY codigo";
         PreparedStatement ps;
         try {
             ps = conexao.Conexao.getConexao().prepareStatement(sql);
@@ -93,7 +93,7 @@ public class PlantaDAO {
     public static ArrayList<String[]> search(String text) {
         ArrayList<String[]> resultados = new ArrayList<>();
         String texto = "%" + text + "%";
-        String sql = "SELECT codigo, tipo, cultivar, kgs FROM planta WHERE upper(tipo) LIKE ? OR upper(cultivar) LIKE ?";
+        String sql = "SELECT codigo, tipo, cultivar, kgs FROM planta WHERE upper(tipo) LIKE ? OR upper(cultivar) LIKE ? ORDER BY codigo";
         PreparedStatement ps;
         try {
             ps = conexao.Conexao.getConexao().prepareStatement(sql);
@@ -111,6 +111,50 @@ public class PlantaDAO {
             return resultados;
         } 
         catch (SQLException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        }
+    }
+    
+    public static ArrayList<String> getTipo() {
+        ArrayList<String> resultados = new ArrayList<>();
+        String sql = "SELECT DISTINCT(tipo) FROM planta";
+        PreparedStatement ps;
+        try {
+            ps = conexao.Conexao.getConexao().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String tipo = rs.getString("tipo");
+                resultados.add(tipo);
+            }
+            return resultados;
+        } 
+        catch (SQLException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        }
+    }
+    
+    public static ArrayList<Planta> getPlantaByTipo(String text) {
+        ArrayList<Planta> resultados = new ArrayList<>();        
+        String sql = "SELECT codigo, tipo, cultivar, kgs FROM planta WHERE tipo = ? ORDER BY codigo";
+        PreparedStatement ps;
+        try {
+            ps = conexao.Conexao.getConexao().prepareStatement(sql);
+            ps.setString(1, text);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int codigo = rs.getInt("codigo");
+                String tipo = rs.getString("tipo");
+                String cultivar = rs.getString("cultivar");
+                Double qtd = rs.getDouble("kgs");
+                Planta aux = new Planta(tipo, cultivar, qtd);
+                aux.codigo = codigo;
+                resultados.add(aux);
+            }
+            return resultados;
+        } 
+        catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
             return null;
         }

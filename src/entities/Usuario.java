@@ -14,7 +14,17 @@ public class Usuario {
     public String password;
     
     public Usuario(String user, String password) throws Exception {
-        this.user = user;
-        this.password = password;
+        if(user.length() > 0) {
+            if(password.length() > 0) {
+                this.user = user;
+                this.password = password;
+            }
+            else {
+                throw new Exception("Senha inválida");
+            }
+        }
+        else {
+            throw new Exception("Nome de usuário inválido");
+        }
     }
 }

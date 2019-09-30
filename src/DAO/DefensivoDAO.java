@@ -35,7 +35,7 @@ public class DefensivoDAO {
     
     public static ArrayList<String[]> consult() {
         ArrayList<String[]> resultados = new ArrayList<>();
-        String sql = "SELECT codigo, nome, classe FROM defensivo";
+        String sql = "SELECT codigo, nome, classe FROM defensivo ORDER BY codigo";
         PreparedStatement ps;
         try {
             ps = conexao.Conexao.getConexao().prepareStatement(sql);
@@ -89,7 +89,7 @@ public class DefensivoDAO {
     public static ArrayList<String[]> search(String text) {
         ArrayList<String[]> resultados = new ArrayList<>();
         String texto = "%" + text + "%";
-        String sql = "SELECT codigo, nome, classe FROM defensivo WHERE upper(nome) LIKE ? OR upper(classe) LIKE ?";
+        String sql = "SELECT codigo, nome, classe FROM defensivo WHERE upper(nome) LIKE ? OR upper(classe) LIKE ? ORDER BY codigo";
         PreparedStatement ps;
         try {
             ps = conexao.Conexao.getConexao().prepareStatement(sql);
@@ -132,7 +132,7 @@ public class DefensivoDAO {
     
     public static ArrayList<Defensivo> getDefensivoByClasse(String text) {
         ArrayList<Defensivo> resultados = new ArrayList<>();        
-        String sql = "SELECT codigo, nome, classe FROM defensivo WHERE classe = ?";
+        String sql = "SELECT codigo, nome, classe FROM defensivo WHERE classe = ? ORDER BY codigo";
         PreparedStatement ps;
         try {
             ps = conexao.Conexao.getConexao().prepareStatement(sql);

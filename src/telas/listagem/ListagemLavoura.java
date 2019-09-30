@@ -10,6 +10,8 @@ import entities.Lavoura;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -186,10 +188,18 @@ public class ListagemLavoura extends javax.swing.JFrame {
         }
         if(evt.getKeyCode() == KeyEvent.VK_F1) {
             if(tblLavouras.getSelectedRow() >= 0){                
-                int linhaSelecionada = tblLavouras.getSelectedRow();        
-                int codigo = Integer.parseInt(tblLavouras.getValueAt(linhaSelecionada, 0).toString());
-                String nome = tblLavouras.getValueAt(linhaSelecionada, 1).toString();
-                ListagemLavouraDetalhada lld = new ListagemLavouraDetalhada(nome);
+                try {
+                    int linhaSelecionada = tblLavouras.getSelectedRow();        
+                    int codigo = Integer.parseInt(tblLavouras.getValueAt(linhaSelecionada, 0).toString());
+                    String nome = tblLavouras.getValueAt(linhaSelecionada, 1).toString();
+                    Double extensao = Double.parseDouble(tblLavouras.getValueAt(linhaSelecionada, 2).toString());
+                    Lavoura aux;
+                    aux = new Lavoura(nome, extensao);
+                    aux.codigo = codigo;
+                    ListagemLavouraDetalhada lld = new ListagemLavouraDetalhada(aux);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+                }
             }
         }
     }//GEN-LAST:event_tblLavourasKeyPressed

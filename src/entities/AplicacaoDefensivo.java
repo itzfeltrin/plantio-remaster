@@ -10,10 +10,10 @@ package entities;
  * @author itzfeltrin
  */
 public class AplicacaoDefensivo {
-    private Aplicacao aplicacao;
-    private Defensivo defensivo;
-    private Double valor;
-    private Double dose;
+    public Aplicacao aplicacao;
+    public Defensivo defensivo;
+    public Double valor;
+    public Double dose;
     
     public AplicacaoDefensivo(Aplicacao aplicacao, Defensivo defensivo, Double valor, Double dose) throws Exception {
         this.aplicacao = aplicacao;

@@ -35,7 +35,7 @@ public class LavouraDAO {
     
     public static ArrayList<String[]> consult() {
         ArrayList<String[]> resultados = new ArrayList<>();
-        String sql = "SELECT codigo, nome, extensao FROM lavoura";
+        String sql = "SELECT codigo, nome, extensao FROM lavoura ORDER BY codigo";
         PreparedStatement ps;
         try {
             ps = conexao.Conexao.getConexao().prepareStatement(sql);
@@ -89,7 +89,7 @@ public class LavouraDAO {
     public static ArrayList<String[]> search(String text) {
         ArrayList<String[]> resultados = new ArrayList<>();
         String texto = "%" + text + "%";
-        String sql = "SELECT codigo, nome, extensao FROM lavoura WHERE upper(nome) LIKE ?";
+        String sql = "SELECT codigo, nome, extensao FROM lavoura WHERE upper(nome) LIKE ? ORDER BY codigo";
         PreparedStatement ps;
         try {
             ps = conexao.Conexao.getConexao().prepareStatement(sql);
@@ -109,4 +109,52 @@ public class LavouraDAO {
             return null;
         }
     }
+    public static int getCodigo(Lavoura lavoura) {
+
+        String sql = "SELECT codigo FROM lavoura WHERE nome = ? AND extensao = ?";
+        try {            
+            PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);            
+            ps.setString(1, lavoura.nome);
+            ps.setDouble(2, lavoura.extensao);
+            ResultSet rs = ps.executeQuery();
+            int codigo = 0;
+            while(rs.next()){
+                codigo = rs.getInt("codigo");
+            }
+            return codigo;
+        } 
+        catch (SQLException | ClassNotFoundException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+            return 0;
+        }
+    } 
+    
+    public static ArrayList<Lavoura> getLavouras() {
+        ArrayList<Lavoura> resultados = new ArrayList<>();
+        String sql = "SELECT * FROM lavoura ORDER BY codigo";
+        PreparedStatement ps;
+        try {
+            ps = conexao.Conexao.getConexao().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                try {
+                    int codigo = rs.getInt("codigo");
+                    String nome = rs.getString("nome");
+                    Double extensao = rs.getDouble("extensao");
+                    Lavoura aux = new Lavoura(nome, extensao);
+                    aux.codigo = codigo;
+                    resultados.add(aux);
+                }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+                }
+            }
+            return resultados;
+        } 
+        catch (SQLException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return null;
+        }
+    }
+    
 }

@@ -95,6 +95,7 @@ public class ManutencaoDefensivo extends javax.swing.JFrame {
         comboboxClasse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inseticida", "Acaricida", "Fungicida", "Nematicida", "Herbicida" }));
 
         txtNome.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        txtNome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

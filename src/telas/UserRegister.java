@@ -181,11 +181,11 @@ public class UserRegister extends javax.swing.JFrame {
         }
         else {
             try {
-            Usuario aux = new Usuario(usernameInput.getText(), String.valueOf(passwordInput.getPassword()));
-            if(UsuarioDAO.insert(aux)) {
-                Main main = new Main(aux);
-                this.dispose();
-                main.setVisible(rootPaneCheckingEnabled);
+                Usuario aux = new Usuario(usernameInput.getText(), String.valueOf(passwordInput.getPassword()));
+                if(UsuarioDAO.insert(aux)) {
+                    Main main = new Main(aux);
+                    this.dispose();
+                    main.setVisible(true);
                 }                
             }
             catch (Exception ex) {

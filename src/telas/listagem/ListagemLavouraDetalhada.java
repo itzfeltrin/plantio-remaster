@@ -5,22 +5,33 @@
  */
 package telas.listagem;
 
+import DAO.AplicacaoDefensivoDAO;
+import DAO.EntregaDAO;
+import entities.Lavoura;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import telas.manutencao.ManutencaoLavoura;
+import telas.manutencao.PanelLavoura;
+import telas.manutencao.TelaEntrega;
+
 /**
  *
  * @author itzfeltrin
  */
 public class ListagemLavouraDetalhada extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ListagemLavouraDetalhada
-     * @param text
-     */
-    public ListagemLavouraDetalhada(String text) {
+    public Lavoura lavoura;
+    public Double valorTotal = 0.00;
+    
+    public ListagemLavouraDetalhada(Lavoura lavoura) {
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);
-        lblNome.setText(text);
+        this.lavoura = lavoura;
+        lblNome.setText(lavoura.nome);
+        atualizarTabelaAplicacao();
+        atualizarTabelaProdutividade();
     }
 
     /**
@@ -35,21 +46,23 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         lblNome = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblProdutividade = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tblAplicacoes = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnNovo = new javax.swing.JLabel();
+        btnNovaEntrega = new javax.swing.JLabel();
+        lblValorTotal = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblNome.setFont(new java.awt.Font("Trebuchet MS", 0, 48)); // NOI18N
         lblNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jTable1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProdutividade.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        tblProdutividade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -60,10 +73,13 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblProdutividade.setRowHeight(25);
+        tblProdutividade.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tblProdutividade.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(tblProdutividade);
 
-        jTable2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblAplicacoes.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        tblAplicacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -74,35 +90,45 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        tblAplicacoes.setRowHeight(25);
+        tblAplicacoes.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tblAplicacoes.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane3.setViewportView(tblAplicacoes);
 
-        jTable3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable3);
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
+        jLabel1.setText("Produtividade");
 
-        jTable4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
+        jLabel2.setText("Aplicações de Defensivos");
+
+        btnNovo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btnNovo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
+        btnNovo.setText("NOVA");
+        btnNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNovo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNovoMouseClicked(evt);
             }
-        ));
-        jScrollPane4.setViewportView(jTable4);
+        });
+
+        btnNovaEntrega.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btnNovaEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnNovaEntrega.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
+        btnNovaEntrega.setText("NOVA");
+        btnNovaEntrega.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNovaEntrega.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNovaEntregaMouseClicked(evt);
+            }
+        });
+
+        lblValorTotal.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblValorTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("TOTAL:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,39 +139,124 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane3)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 891, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnNovaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(8, 8, 8)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNovaEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnNovoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseClicked
+        ManutencaoLavoura ml = new ManutencaoLavoura();        
+        ml.tabbedPane.setEnabledAt(1, true);
+        ml.tabbedPane.setSelectedIndex(1);
+        PanelLavoura pl = (PanelLavoura) ml.tabbedPane.getComponentAt(0);
+        pl.setLavouraToAddAplicacao(this, this.lavoura);
+        ml.setVisible(true);
+    }//GEN-LAST:event_btnNovoMouseClicked
+
+    private void btnNovaEntregaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovaEntregaMouseClicked
+        TelaEntrega te = new TelaEntrega();
+        te.setLavoura(this, this.lavoura);
+        te.setVisible(true);
+    }//GEN-LAST:event_btnNovaEntregaMouseClicked
+
+    public void atualizarTabelaAplicacao() {
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+        modelo.addColumn("Classe");
+        modelo.addColumn("Nome");
+        modelo.addColumn("Data");        
+        modelo.addColumn("Observação");
+        modelo.addColumn("Dose");
+        modelo.addColumn("Valor");
+        List<String[]> resultados = AplicacaoDefensivoDAO.consult(this.lavoura);
+        for (String[] linha : resultados) {
+            modelo.addRow(linha);
+            this.valorTotal += Double.parseDouble(linha[5]);
+            lblValorTotal.setText("R$" + String.format("%.2f", this.valorTotal));
+            
+        }
+        tblAplicacoes.setModel(modelo);        
+        tblAplicacoes.getColumnModel().getColumn(0).setMaxWidth(125);        
+        tblAplicacoes.getColumnModel().getColumn(2).setMaxWidth(125);        
+        tblAplicacoes.getColumnModel().getColumn(4).setMaxWidth(65);        
+        tblAplicacoes.getColumnModel().getColumn(5).setMaxWidth(65);        
+    }
+    public void atualizarTabelaProdutividade() {
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Cultivar");
+        modelo.addColumn("Safra");        
+        modelo.addColumn("Qtd. em Sacas");
+        modelo.addColumn("Total em Kgs");
+        modelo.addColumn("Data Entrega");
+        modelo.addColumn("Data Cadastro");
+        modelo.addColumn("Data Alteração");
+        List<String[]> resultados = EntregaDAO.consult(this.lavoura);
+        for (String[] linha : resultados) {
+            modelo.addRow(linha);
+        }
+        tblProdutividade.setModel(modelo);             
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -182,15 +293,17 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnNovaEntrega;
+    private javax.swing.JLabel btnNovo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblValorTotal;
+    private javax.swing.JTable tblAplicacoes;
+    private javax.swing.JTable tblProdutividade;
     // End of variables declaration//GEN-END:variables
 }

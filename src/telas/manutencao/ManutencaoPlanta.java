@@ -98,12 +98,14 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
         comboboxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trigo", "Aveia", "Soja", "Milho", "Fumo" }));
 
         txtCultivar.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        txtCultivar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel4.setText("Kgs. por Saca");
 
         spinnerKgs.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         spinnerKgs.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.1d, null, 1.0d));
+        spinnerKgs.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,7 +158,7 @@ public class ManutencaoPlanta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGravar))
+                    .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
 
