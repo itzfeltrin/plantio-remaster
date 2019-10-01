@@ -16,6 +16,7 @@ public class Entrega {
     public Integer qtdEmSacas;
     public Integer qtdEmKgs;
     public String dataEntrega;
+    public int codigo;
     
     public Entrega(Lavoura lavoura, Planta planta, Integer safra, Integer qtd, String data) throws Exception {
         if(lavoura != null) {

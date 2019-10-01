@@ -26,6 +26,7 @@ public class TelaEntrega extends javax.swing.JFrame {
 
     public Lavoura lavouraAtual;
     public Planta plantaAtual;
+    public Entrega entregaAtual;
     public ArrayList<Planta> listaPlanta = new ArrayList<>();
     public ArrayList<Lavoura> listaLavoura = new ArrayList<>();
     public ListagemLavouraDetalhada lld;
@@ -237,7 +238,13 @@ public class TelaEntrega extends javax.swing.JFrame {
                 Planta auxPlanta = this.listaPlanta.get(codigoPlanta);
                 Lavoura auxLavoura = this.listaLavoura.get(codigoLavoura);
                 Entrega auxEntrega = new Entrega(auxLavoura, auxPlanta, Integer.parseInt(comboboxSafra.getSelectedItem().toString()), (Integer) spinnerQtd.getValue(), txtData.getText());
-                EntregaDAO.insert(auxEntrega);
+                auxEntrega.codigo = this.entregaAtual.codigo;
+                if(this.entregaAtual != null) {
+                    EntregaDAO.update(auxEntrega);
+                }
+                else {
+                    EntregaDAO.insert(auxEntrega);
+                }
                 Object[] options = {"Sim", "Não"};
                 int opcao = JOptionPane.showOptionDialog(null, "Deseja cadastrar outra entrega?", "Alerta", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if(opcao == 0){
@@ -324,6 +331,17 @@ public class TelaEntrega extends javax.swing.JFrame {
         comboboxLavoura.setSelectedItem(lavoura.nome);
         this.lld = lld;
         this.lavouraAtual = lavoura;
+    }
+    
+    public void setEntrega(ListagemLavouraDetalhada lld, Entrega entrega) {
+        this.lld = lld;
+        this.entregaAtual = entrega;
+        comboboxLavoura.setSelectedItem(entrega.lavoura.nome);
+        comboboxTipo.setSelectedItem(entrega.planta.tipo);
+        comboboxCultivar.setSelectedItem(entrega.planta.cultivar);
+        comboboxSafra.setSelectedItem(entrega.safra);
+        spinnerQtd.setValue(entrega.qtdEmSacas);
+        txtData.setText(entrega.dataEntrega);
     }
     
     public static void main(String args[]) {

@@ -7,8 +7,13 @@ package telas.listagem;
 
 import DAO.AplicacaoDefensivoDAO;
 import DAO.EntregaDAO;
+import DAO.LavouraDAO;
+import entities.Entrega;
 import entities.Lavoura;
+import entities.Planta;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import telas.manutencao.ManutencaoLavoura;
 import telas.manutencao.PanelLavoura;
@@ -76,6 +81,16 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         tblProdutividade.setRowHeight(25);
         tblProdutividade.setSelectionBackground(new java.awt.Color(204, 204, 204));
         tblProdutividade.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        tblProdutividade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblProdutividadeMousePressed(evt);
+            }
+        });
+        tblProdutividade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblProdutividadeKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblProdutividade);
 
         tblAplicacoes.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -105,7 +120,7 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         btnNovo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
         btnNovo.setText("NOVA");
-        btnNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNovo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnNovoMouseClicked(evt);
@@ -116,7 +131,7 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         btnNovaEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnNovaEntrega.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
         btnNovaEntrega.setText("NOVA");
-        btnNovaEntrega.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNovaEntrega.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNovaEntrega.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnNovaEntregaMouseClicked(evt);
@@ -206,6 +221,44 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         te.setVisible(true);
     }//GEN-LAST:event_btnNovaEntregaMouseClicked
 
+    private void tblProdutividadeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutividadeMousePressed
+        if (evt.getClickCount() == 2) {
+            //obtem a linha selecionada
+            int linhaSelecionada = tblProdutividade.getSelectedRow();
+            //obtem a chave primária            
+            Integer codigo = Integer.parseInt(tblProdutividade.getValueAt(linhaSelecionada, 0).toString()); //pk está na coluna 0                        
+            String tipo = tblProdutividade.getValueAt(linhaSelecionada, 1).toString();            
+            String cultivar = tblProdutividade.getValueAt(linhaSelecionada, 2).toString();     
+            int safra = Integer.parseInt(tblProdutividade.getValueAt(linhaSelecionada, 3).toString());
+            int qtdSacas = Integer.parseInt(tblProdutividade.getValueAt(linhaSelecionada, 4).toString());
+            String dataEntrega = tblProdutividade.getValueAt(linhaSelecionada, 6).toString();
+            try {
+                Entrega auxEntrega = new Entrega(this.lavoura, new Planta(tipo, cultivar), safra, qtdSacas, dataEntrega);
+                auxEntrega.codigo = codigo;
+                TelaEntrega te = new TelaEntrega();
+                te.setEntrega(this, auxEntrega);
+                te.setVisible(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_tblProdutividadeMousePressed
+
+    private void tblProdutividadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProdutividadeKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            if(tblProdutividade.getSelectedRow() >= 0){
+                Object[] options = {"Sim", "Não"};
+                int opcao = JOptionPane.showOptionDialog(null, "Tem certeza? Todos os dados referentes também serão deletados", "Alerta", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(opcao == 0){
+                    int linhaSelecionada = tblProdutividade.getSelectedRow();        
+                    int codigo = Integer.parseInt(tblProdutividade.getValueAt(linhaSelecionada, 0).toString());
+                    EntregaDAO.delete(codigo);            
+                    atualizarTabelaProdutividade();
+                }        
+            }
+        }
+    }//GEN-LAST:event_tblProdutividadeKeyPressed
+
     public void atualizarTabelaAplicacao() {
         DefaultTableModel modelo = new DefaultTableModel(){
             @Override
@@ -221,6 +274,7 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         modelo.addColumn("Dose");
         modelo.addColumn("Valor");
         List<String[]> resultados = AplicacaoDefensivoDAO.consult(this.lavoura);
+        this.valorTotal = 0.00;
         for (String[] linha : resultados) {
             modelo.addRow(linha);
             this.valorTotal += Double.parseDouble(linha[5]);
@@ -241,6 +295,7 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
                return false;
             }
         };
+        modelo.addColumn("Código");
         modelo.addColumn("Tipo");
         modelo.addColumn("Cultivar");
         modelo.addColumn("Safra");        
