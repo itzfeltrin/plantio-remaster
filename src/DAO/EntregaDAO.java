@@ -63,8 +63,8 @@ public class EntregaDAO {
                 linha[4] = rs.getString("qtd_sacas");
                 linha[5] = rs.getString("qtd_kgs");
                 linha[6] = rs.getString("data_entrega");
-                linha[7] = rs.getString("data_cadastro");
-                linha[8] = rs.getString("data_alteracao");
+                linha[7] = (rs.getString("data_cadastro") != null) ? rs.getString("data_cadastro").substring(0, 19) : rs.getString("data_cadastro");
+                linha[8] = (rs.getString("data_alteracao") != null) ? rs.getString("data_alteracao").substring(0, 19) : rs.getString("data_alteracao");                
                 resultados.add(linha);
             }
             return resultados;

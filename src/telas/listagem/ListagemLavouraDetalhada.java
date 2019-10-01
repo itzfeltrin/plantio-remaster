@@ -5,9 +5,12 @@
  */
 package telas.listagem;
 
+import DAO.AplicacaoDAO;
 import DAO.AplicacaoDefensivoDAO;
 import DAO.EntregaDAO;
-import DAO.LavouraDAO;
+import entities.Aplicacao;
+import entities.AplicacaoDefensivo;
+import entities.Defensivo;
 import entities.Entrega;
 import entities.Lavoura;
 import entities.Planta;
@@ -16,6 +19,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import telas.manutencao.ManutencaoLavoura;
+import telas.manutencao.PanelAplicacao;
 import telas.manutencao.PanelLavoura;
 import telas.manutencao.TelaEntrega;
 
@@ -108,6 +112,16 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         tblAplicacoes.setRowHeight(25);
         tblAplicacoes.setSelectionBackground(new java.awt.Color(204, 204, 204));
         tblAplicacoes.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        tblAplicacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblAplicacoesMousePressed(evt);
+            }
+        });
+        tblAplicacoes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblAplicacoesKeyPressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblAplicacoes);
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
@@ -120,7 +134,7 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         btnNovo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
         btnNovo.setText("NOVA");
-        btnNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNovo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnNovoMouseClicked(evt);
@@ -131,7 +145,7 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         btnNovaEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnNovaEntrega.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
         btnNovaEntrega.setText("NOVA");
-        btnNovaEntrega.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnNovaEntrega.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNovaEntrega.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnNovaEntregaMouseClicked(evt);
@@ -238,7 +252,7 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
                 TelaEntrega te = new TelaEntrega();
                 te.setEntrega(this, auxEntrega);
                 te.setVisible(true);
-            } catch (Exception ex) {
+            } catch (Exception ex) {                
                 JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
             }
         }
@@ -248,7 +262,7 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         if(evt.getKeyCode() == KeyEvent.VK_DELETE) {
             if(tblProdutividade.getSelectedRow() >= 0){
                 Object[] options = {"Sim", "Não"};
-                int opcao = JOptionPane.showOptionDialog(null, "Tem certeza? Todos os dados referentes também serão deletados", "Alerta", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                int opcao = JOptionPane.showOptionDialog(null, "Tem certeza? Todos os dados serão deletados", "Alerta", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if(opcao == 0){
                     int linhaSelecionada = tblProdutividade.getSelectedRow();        
                     int codigo = Integer.parseInt(tblProdutividade.getValueAt(linhaSelecionada, 0).toString());
@@ -259,6 +273,52 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblProdutividadeKeyPressed
 
+    private void tblAplicacoesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblAplicacoesKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            if(tblAplicacoes.getSelectedRow() >= 0){
+                Object[] options = {"Sim", "Não"};
+                int opcao = JOptionPane.showOptionDialog(null, "Tem certeza? Todos os dados serão deletados", "Alerta", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(opcao == 0){
+                    int linhaSelecionada = tblAplicacoes.getSelectedRow();        
+                    int codigo = Integer.parseInt(tblAplicacoes.getValueAt(linhaSelecionada, 0).toString());
+                    AplicacaoDAO.delete(codigo);            
+                    atualizarTabelaAplicacao();
+                }        
+            }
+        }
+    }//GEN-LAST:event_tblAplicacoesKeyPressed
+
+    private void tblAplicacoesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAplicacoesMousePressed
+        if (evt.getClickCount() == 2) {
+            //obtem a linha selecionada
+            int linhaSelecionada = tblAplicacoes.getSelectedRow();
+            //obtem a chave primária            
+            Integer codigo = Integer.parseInt(tblAplicacoes.getValueAt(linhaSelecionada, 0).toString()); //pk está na coluna 0                        
+            String classe = tblAplicacoes.getValueAt(linhaSelecionada, 1).toString();
+            String nome = tblAplicacoes.getValueAt(linhaSelecionada, 2).toString();
+            String data = tblAplicacoes.getValueAt(linhaSelecionada, 3).toString();
+            String osbervacao = tblAplicacoes.getValueAt(linhaSelecionada, 4).toString();
+            Double dose = Double.parseDouble(tblAplicacoes.getValueAt(linhaSelecionada, 5).toString());
+            Double valor = Double.parseDouble(tblAplicacoes.getValueAt(linhaSelecionada, 6).toString());
+            try {
+                Defensivo auxDefensivo = new Defensivo(nome, classe);
+                Aplicacao auxAplicacao = new Aplicacao(data, osbervacao, this.lavoura);
+                auxAplicacao.codigo = codigo;
+                AplicacaoDefensivo auxAplicacaoDefensivo = new AplicacaoDefensivo(auxAplicacao, auxDefensivo, valor, dose);
+                ManutencaoLavoura ml = new ManutencaoLavoura();        
+                ml.tabbedPane.setEnabledAt(1, true);
+                ml.tabbedPane.setSelectedIndex(1);
+                PanelLavoura pl = (PanelLavoura) ml.tabbedPane.getComponentAt(0);
+                PanelAplicacao pa = (PanelAplicacao) ml.tabbedPane.getComponentAt(1);
+                pl.setLavouraToAddAplicacao(this, this.lavoura);
+                pa.setAplicacaoToEdit(this, auxAplicacao, auxAplicacaoDefensivo, auxDefensivo);
+                ml.setVisible(true);
+            } catch (Exception ex) {                
+                JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_tblAplicacoesMousePressed
+
     public void atualizarTabelaAplicacao() {
         DefaultTableModel modelo = new DefaultTableModel(){
             @Override
@@ -267,6 +327,7 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
                return false;
             }
         };
+        modelo.addColumn("Cód. Aplicação");
         modelo.addColumn("Classe");
         modelo.addColumn("Nome");
         modelo.addColumn("Data");        
@@ -277,15 +338,16 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         this.valorTotal = 0.00;
         for (String[] linha : resultados) {
             modelo.addRow(linha);
-            this.valorTotal += Double.parseDouble(linha[5]);
+            this.valorTotal += Double.parseDouble(linha[6]);
             lblValorTotal.setText("R$" + String.format("%.2f", this.valorTotal));
             
         }
         tblAplicacoes.setModel(modelo);        
-        tblAplicacoes.getColumnModel().getColumn(0).setMaxWidth(125);        
-        tblAplicacoes.getColumnModel().getColumn(2).setMaxWidth(125);        
-        tblAplicacoes.getColumnModel().getColumn(4).setMaxWidth(65);        
+        tblAplicacoes.getColumnModel().getColumn(0).setMaxWidth(65);        
+        tblAplicacoes.getColumnModel().getColumn(1).setMaxWidth(125);        
+        tblAplicacoes.getColumnModel().getColumn(3).setMaxWidth(125);        
         tblAplicacoes.getColumnModel().getColumn(5).setMaxWidth(65);        
+        tblAplicacoes.getColumnModel().getColumn(6).setMaxWidth(65);        
     }
     public void atualizarTabelaProdutividade() {
         DefaultTableModel modelo = new DefaultTableModel(){
@@ -308,7 +370,7 @@ public class ListagemLavouraDetalhada extends javax.swing.JFrame {
         for (String[] linha : resultados) {
             modelo.addRow(linha);
         }
-        tblProdutividade.setModel(modelo);             
+        tblProdutividade.setModel(modelo);
     }
     
     

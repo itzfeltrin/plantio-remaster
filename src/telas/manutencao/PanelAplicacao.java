@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import telas.listagem.ListagemLavouraDetalhada;
 
 /**
  *
@@ -33,6 +34,7 @@ public class PanelAplicacao extends javax.swing.JPanel {
     public Defensivo defensivo;
     public Aplicacao aplicacao;
     public AplicacaoDefensivo aplicacaoDefensivo;
+    public ListagemLavouraDetalhada lld;
         
     public PanelAplicacao(javax.swing.JTabbedPane mainTabbedPane) {
         initComponents();
@@ -262,23 +264,29 @@ public class PanelAplicacao extends javax.swing.JPanel {
     private void btnGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGravarMouseClicked
         try {
             ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);  
-            Aplicacao auxAplicacao = new Aplicacao(txtData.getText(), txtObservacao.getText(), topFrame.lavoura);
+            Aplicacao auxAplicacao = new Aplicacao(txtData.getText(), txtObservacao.getText(), topFrame.lavoura);            
             Defensivo auxDefensivo = this.defensivo;
             if(auxDefensivo.codigo > 0) {
                 AplicacaoDefensivo auxAplicacaoDefensivo = new AplicacaoDefensivo(auxAplicacao, auxDefensivo, Double.parseDouble(txtValor.getText()), (Double) spinnerDose.getValue());
-                topFrame.listaAplicacao.add(auxAplicacao);
-                topFrame.listaAplicacaoDefensivo.add(auxAplicacaoDefensivo);                      
-                for(Aplicacao obj : topFrame.listaAplicacao) {
-                    try {
-                        AplicacaoDAO.insert(obj);
-                        obj.codigo = AplicacaoDAO.getCodigo(obj);
-                    } catch (ParseException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+                if(this.aplicacao == null) {
+                    topFrame.listaAplicacao.add(auxAplicacao);
+                    topFrame.listaAplicacaoDefensivo.add(auxAplicacaoDefensivo);
+                    for(Aplicacao obj : topFrame.listaAplicacao) {
+                        try {
+                            AplicacaoDAO.insert(obj);
+                            obj.codigo = AplicacaoDAO.getCodigo(obj);
+                        } catch (ParseException ex) {
+                            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+                        }
                     }
-                }                
-                int i = 0;
-                for(AplicacaoDefensivo obj : topFrame.listaAplicacaoDefensivo) {
-                    AplicacaoDefensivoDAO.insert(obj);                    
+                    for(AplicacaoDefensivo obj : topFrame.listaAplicacaoDefensivo) {
+                        AplicacaoDefensivoDAO.insert(obj);                    
+                    }   
+                }
+                else {
+                    auxAplicacao.codigo = this.aplicacao.codigo;
+                    AplicacaoDAO.update(auxAplicacao);
+                    AplicacaoDefensivoDAO.update(auxAplicacaoDefensivo);
                 }
                 PanelLavoura pl = (PanelLavoura) topFrame.tabbedPane.getComponentAt(0);
                 if(pl.lld != null) {
@@ -294,19 +302,21 @@ public class PanelAplicacao extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGravarMouseClicked
 
     private void btnOutroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOutroMouseClicked
-        try {
-            ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);  
-            Aplicacao auxAplicacao = new Aplicacao(txtData.getText(), txtObservacao.getText(), topFrame.lavoura);
-            Defensivo auxDefensivo = this.defensivo;
-            if(auxDefensivo.codigo > 0) {
-                AplicacaoDefensivo auxAplicacaoDefensivo = new AplicacaoDefensivo(auxAplicacao, auxDefensivo, Double.parseDouble(txtValor.getText()), (Double) spinnerDose.getValue());
-                topFrame.listaAplicacao.add(auxAplicacao);
-                topFrame.listaAplicacaoDefensivo.add(auxAplicacaoDefensivo);
+        if(btnOutro.isEnabled()) {
+            try {
+                ManutencaoLavoura topFrame = (ManutencaoLavoura) SwingUtilities.getWindowAncestor(this);  
+                Aplicacao auxAplicacao = new Aplicacao(txtData.getText(), txtObservacao.getText(), topFrame.lavoura);
+                Defensivo auxDefensivo = this.defensivo;
+                if(auxDefensivo.codigo > 0) {
+                    AplicacaoDefensivo auxAplicacaoDefensivo = new AplicacaoDefensivo(auxAplicacao, auxDefensivo, Double.parseDouble(txtValor.getText()), (Double) spinnerDose.getValue());
+                    topFrame.listaAplicacao.add(auxAplicacao);
+                    topFrame.listaAplicacaoDefensivo.add(auxAplicacaoDefensivo);
+                }
+                clearScreen();
             }
-            clearScreen();
-        }
-        catch (Exception ex) {            
-            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            catch (Exception ex) {            
+                JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            }
         }
     }//GEN-LAST:event_btnOutroMouseClicked
 
@@ -380,6 +390,21 @@ public class PanelAplicacao extends javax.swing.JPanel {
                 }
             });
         }
+    }
+    
+    
+    public void setAplicacaoToEdit(ListagemLavouraDetalhada lld, Aplicacao aplicacao, AplicacaoDefensivo aplicacaoDefensivo, Defensivo defensivo) {
+        this.lld = lld;
+        this.aplicacao = aplicacao;
+        this.aplicacaoDefensivo = aplicacaoDefensivo;
+        this.defensivo = defensivo;
+        txtData.setText(aplicacao.data);
+        comboboxClasse.setSelectedItem(defensivo.classe);
+        comboboxNome.setSelectedItem(defensivo.nome);
+        txtValor.setText(aplicacaoDefensivo.valor.toString());
+        txtObservacao.setText(aplicacao.observacao);
+        spinnerDose.setValue(aplicacaoDefensivo.dose);
+        btnOutro.setEnabled(false);
     }
         
 

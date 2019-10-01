@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,8 +22,7 @@ public class AplicacaoDAO {
         String sql = "INSERT INTO aplicacao (data, observacao, cod_lavoura) VALUES (?, ?, ?)";
         try {
             PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);            ;            
-            java.sql.Date data = java.sql.Date.valueOf(aplicacao.data);
-            //System.out.println(data);
+            java.sql.Date data = java.sql.Date.valueOf(aplicacao.data);            
             ps.setDate(1, data);
             ps.setString(2, aplicacao.observacao);
             ps.setDouble(3, aplicacao.lavoura.codigo);
@@ -38,7 +38,7 @@ public class AplicacaoDAO {
     
     public static int getCodigo(Aplicacao aplicacao) throws ParseException {
 
-        String sql = "SELECT codigo FROM aplicacao WHERE data = ? AND cod_lavoura = ?";
+        String sql = "SELECT codigo FROM aplicacao WHERE data = ? AND cod_lavoura = ? ORDER BY codigo";
         try {            
             PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");            
@@ -56,5 +56,36 @@ public class AplicacaoDAO {
             System.out.println("Erro: " + ex.getMessage());
             return 0;
         }
-    } 
+    }
+    
+    public static boolean delete(int codigo){
+        String sql = "DELETE FROM aplicacao WHERE codigo = ?";
+        try {
+            PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);
+            ps.setInt(1, codigo);
+            ps.executeUpdate();
+            return true;
+        }
+        catch (SQLException | ClassNotFoundException ex){
+            JOptionPane.showMessageDialog(null, "Não pode ser deletada");
+            return false;
+        }
+    }
+    
+    public static boolean update(Aplicacao aplicacao) {
+        String sql = "UPDATE aplicacao SET data = ?, observacao = ? WHERE codigo = ?";        
+        try {            
+            java.sql.Date data = java.sql.Date.valueOf(aplicacao.data);            
+            PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);
+            ps.setDate(1, data);
+            ps.setString(2, aplicacao.observacao);
+            ps.setInt(3, aplicacao.codigo);            
+            ps.executeUpdate();
+            return true;
+        } 
+        catch (SQLException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return false;
+        }
+    }
 }

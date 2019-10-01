@@ -237,9 +237,9 @@ public class TelaEntrega extends javax.swing.JFrame {
                 int codigoLavoura = comboboxLavoura.getSelectedIndex() - 1;
                 Planta auxPlanta = this.listaPlanta.get(codigoPlanta);
                 Lavoura auxLavoura = this.listaLavoura.get(codigoLavoura);
-                Entrega auxEntrega = new Entrega(auxLavoura, auxPlanta, Integer.parseInt(comboboxSafra.getSelectedItem().toString()), (Integer) spinnerQtd.getValue(), txtData.getText());
-                auxEntrega.codigo = this.entregaAtual.codigo;
+                Entrega auxEntrega = new Entrega(auxLavoura, auxPlanta, Integer.parseInt(comboboxSafra.getSelectedItem().toString()), (Integer) spinnerQtd.getValue(), txtData.getText());                
                 if(this.entregaAtual != null) {
+                    auxEntrega.codigo = this.entregaAtual.codigo;
                     EntregaDAO.update(auxEntrega);
                 }
                 else {
@@ -259,8 +259,8 @@ public class TelaEntrega extends javax.swing.JFrame {
                 }
                 dispose();
             }
-            catch(Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            catch(Exception ex) {                
+                JOptionPane.showMessageDialog(null, "Errozinho: " + ex.getMessage());
             }
         }
     }//GEN-LAST:event_btnGravarMouseClicked

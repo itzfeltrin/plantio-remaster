@@ -1,0 +1,175 @@
+--TABELAS
+CREATE TABLE usuario (
+	codigo SERIAL NOT NULL,
+	nome VARCHAR(100) NOT NULL,
+	senha VARCHAR(40) NOT NULL,
+	
+	CONSTRAINT pk_usuario PRIMARY KEY (codigo)
+);
+
+CREATE TABLE planta (
+	codigo SERIAL NOT NULL,
+	tipo VARCHAR(40) NOT NULL,
+	cultivar VARCHAR(40) NOT NULL,
+	kgs NUMERIC(5, 2) NOT NULL,
+	
+	CONSTRAINT pk_planta PRIMARY KEY (codigo)
+);
+
+--select * from planta
+
+CREATE TABLE defensivo (
+	codigo SERIAL NOT NULL,
+	nome VARCHAR(100) NOT NULL,
+	classe VARCHAR(40) NOT NULL,
+	
+	CONSTRAINT pk_defensivo PRIMARY KEY (codigo)
+);
+
+CREATE TABLE lavoura (
+	codigo SERIAL NOT NULL,
+	nome VARCHAR(100) NOT NULL,
+	extensao NUMERIC(8,2) NOT NULL,
+	
+	CONSTRAINT pk_lavoura PRIMARY KEY (codigo)
+);
+
+CREATE TABLE aplicacao (
+	codigo SERIAL NOT NULL,
+	data DATE NOT NULL,
+	observacao VARCHAR(150),
+	valor_total NUMERIC(11, 2),
+	cod_lavoura INT NOT NULL,
+	
+	CONSTRAINT pk_aplicacao PRIMARY KEY (codigo),
+	CONSTRAINT fk_aplicacao_lavoura FOREIGN KEY (cod_lavoura) REFERENCES lavoura (codigo)
+);
+
+CREATE TABLE aplicacaodefensivo (
+	cod_aplicacao INT NOT NULL,
+	cod_defensivo INT NOT NULL,
+	valor NUMERIC(8, 2) NOT NULL,
+	dose NUMERIC(5, 2) NOT NULL,
+
+	CONSTRAINT pk_aplicacaodefensivo PRIMARY KEY (cod_aplicacao, cod_defensivo),
+	CONSTRAINT fk_aplicacaodefensivo_aplicacao FOREIGN KEY (cod_aplicacao) REFERENCES aplicacao (codigo) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_aplicacaodefensivo_defensivo FOREIGN KEY (cod_defensivo) REFERENCES defensivo (codigo) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE produtividade (
+	codigo SERIAL NOT NULL,
+	cod_lavoura INT NOT NULL,
+	cod_planta INT NOT NULL,
+	qtd_em_sacas INT,
+	safra INT,
+	
+	CONSTRAINT pk_produtividade PRIMARY KEY (codigo),
+	CONSTRAINT fk_produtividade_lavoura FOREIGN KEY (cod_lavoura) REFERENCES lavoura(codigo)
+	ON DELETE CASCADE,
+	CONSTRAINT fk_produtividade_planta FOREIGN KEY (cod_planta) REFERENCES planta(codigo)
+	ON DELETE CASCADE
+);
+
+CREATE TABLE entrega (
+	codigo SERIAL NOT NULL,
+	cod_planta INT NOT NULL,
+	cod_lavoura INT NOT NULL,
+	safra INT NOT NULL,
+	qtd_sacas INT NOT NULL,
+	qtd_kgs INT,
+	data_entrega DATE NOT NULL,
+	usu_cadastro VARCHAR(80) NOT NULL,
+	data_cadastro TIMESTAMP NOT NULL,
+	usu_alteracao VARCHAR(80),
+	data_alteracao TIMESTAMP,
+	
+	CONSTRAINT pk_entrega PRIMARY KEY (codigo),
+	CONSTRAINT fk_entrega_planta FOREIGN KEY (cod_planta) REFERENCES planta (codigo) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT fk_entrega_lavoura FOREIGN KEY (cod_lavoura) REFERENCES lavoura (codigo) ON UPDATE CASCADE ON DELETE CASCADE 
+);
+--TABELAS
+
+--TRIGGERS
+CREATE TRIGGER t_aplicacao_defensivo BEFORE INSERT ON aplicacaodefensivo
+FOR EACH ROW EXECUTE PROCEDURE apl_def_stamp();
+
+CREATE TRIGGER t_entrega_produtividade BEFORE INSERT ON entrega
+FOR EACH ROW EXECUTE PROCEDURE ent_pro_stamp();
+
+CREATE TRIGGER t_quantidade_entrega BEFORE INSERT OR UPDATE ON entrega
+FOR EACH ROW EXECUTE PROCEDURE ent_qtd_stamp();
+
+CREATE TRIGGER t_cadastro_entrega BEFORE INSERT ON entrega
+FOR EACH ROW EXECUTE PROCEDURE ent_cad_stamp();
+
+CREATE TRIGGER t_alteracao_entrega BEFORE UPDATE ON entrega
+FOR EACH ROW EXECUTE PROCEDURE ent_ult_usu_stamp();
+--TRIGGERS
+
+--FUNCOES
+CREATE FUNCTION apl_def_stamp() RETURNS trigger AS $apl_def_stamp$
+	BEGIN		
+		UPDATE aplicacao SET total = (total + NEW.dose); 
+	END;
+$apl_def_stamp$ LANGUAGE plpgsql;
+
+CREATE FUNCTION ent_qtd_stamp() RETURNS trigger AS $ent_qtd_stamp$
+	BEGIN
+		NEW.qtd_kgs = NEW.qtd_sacas * (select kgs from planta where codigo = NEW.cod_planta);
+		RETURN NEW;
+	END;
+$ent_qtd_stamp$ LANGUAGE plpgsql;
+
+CREATE FUNCTION ent_pro_stamp() RETURNS trigger AS $ent_pro_stamp$
+	BEGIN		
+		UPDATE produtividade SET qtd = (qtd + NEW.qtd_sacas);
+	END;
+$ent_pro_stamp$ LANGUAGE plpgsql;
+
+CREATE FUNCTION ent_cad_stamp() RETURNS trigger AS $ent_cad_stamp$
+	BEGIN
+		NEW.usu_cadastro := current_user;
+		NEW.data_cadastro := 'now';
+		RETURN NEW;
+	END
+$ent_cad_stamp$ LANGUAGE plpgsql;
+
+CREATE FUNCTION ent_ult_usu_stamp() RETURNS trigger AS $ent_ult_usu_stamp$
+	BEGIN		
+		NEW.usu_alteracao := current_user;
+		NEW.data_alteracao := 'now';
+		RETURN NEW;
+	END;
+$ent_ult_usu_stamp$ LANGUAGE plpgsql;
+--FUNCOES
+
+SELECT codigo, nome, classe FROM defensivo WHERE upper(nome) LIKE '%DEF%' OR upper(classe) LIKE '%Ins%'
+
+INSERT INTO aplicacaodefensivo (valor, dose, cod_aplicacao, cod_defensivo) VALUES (25.50, 2.50, 3, 6)
+
+select * from usuario
+select * from defensivo
+select * from planta
+select * from usuario
+select * from lavoura
+select * from aplicacao
+select * from aplicacaodefensivo
+select * from entrega
+
+update entrega set safra = 2013 where codigo = 2
+
+delete from usuario where codigo = 3
+delete from entrega
+
+SELECT d.classe, d.nome, a.data, a.observacao, ad.dose, ad.valor
+  FROM defensivo d
+  JOIN aplicacaodefensivo ad ON d.codigo = ad.cod_defensivo
+  JOIN aplicacao a ON a.codigo = ad.cod_aplicacao
+  JOIN lavoura l ON l.codigo = a.cod_lavoura
+  WHERE l.codigo = 73
+
+SELECT p.tipo, p.cultivar, e.safra, e.qtd_sacas, e.qtd_kgs, e.data_entrega, e.data_cadastro, e.data_alteracao
+  FROM lavoura l 
+  JOIN entrega e ON l.codigo = e.cod_lavoura
+  JOIN planta p ON p.codigo = e.cod_planta
+  WHERE l.codigo = 4

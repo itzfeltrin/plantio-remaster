@@ -24,7 +24,6 @@ public class AplicacaoDefensivoDAO {
             PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);
             ps.setDouble(1, aplicacaoDefensivo.valor);
             ps.setDouble(2, aplicacaoDefensivo.dose);
-            System.out.println("codigo aplicacao: " + aplicacaoDefensivo.aplicacao.codigo);
             ps.setInt(3, aplicacaoDefensivo.aplicacao.codigo);
             ps.setInt(4, aplicacaoDefensivo.defensivo.codigo);
             ps.executeUpdate();
@@ -39,25 +38,27 @@ public class AplicacaoDefensivoDAO {
     
     public static ArrayList<String[]> consult(Lavoura lavoura) {
         ArrayList<String[]> resultados = new ArrayList<>();
-        String sql = "SELECT d.classe, d.nome, a.data, a.observacao, ad.dose, ad.valor\n" +
+        String sql = "SELECT a.codigo, d.classe, d.nome, a.data, a.observacao, ad.dose, ad.valor\n" +
                         "  FROM defensivo d\n" +
                         "  JOIN aplicacaodefensivo ad ON d.codigo = ad.cod_defensivo\n" +
                         "  JOIN aplicacao a ON a.codigo = ad.cod_aplicacao\n" +
                         "  JOIN lavoura l ON l.codigo = a.cod_lavoura\n" +
-                        "  WHERE l.codigo = ?";
+                        "  WHERE l.codigo = ?" + 
+                        "  ORDER BY a.codigo";
         PreparedStatement ps;
         try {
             ps = conexao.Conexao.getConexao().prepareStatement(sql);
             ps.setInt(1, lavoura.codigo);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String[] linha = new String[6];
-                linha[0] = rs.getString("classe");
-                linha[1] = rs.getString("nome");
-                linha[2] = rs.getString("data");
-                linha[3] = rs.getString("observacao");
-                linha[4] = rs.getString("dose");
-                linha[5] = rs.getString("valor");
+                String[] linha = new String[7];
+                linha[0] = rs.getString("codigo");
+                linha[1] = rs.getString("classe");
+                linha[2] = rs.getString("nome");
+                linha[3] = rs.getString("data");
+                linha[4] = rs.getString("observacao");
+                linha[5] = rs.getString("dose");
+                linha[6] = rs.getString("valor");
                 resultados.add(linha);
             }
             return resultados;
@@ -65,6 +66,23 @@ public class AplicacaoDefensivoDAO {
         catch (SQLException | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
             return null;
+        }
+    }
+    
+    public static boolean update(AplicacaoDefensivo aplicacaoDefensivo) {
+        String sql = "UPDATE aplicacaodefensivo SET valor = ?, dose = ?, cod_defensivo = ? WHERE cod_aplicacao = ?";        
+        try {                             
+            PreparedStatement ps = conexao.Conexao.getConexao().prepareStatement(sql);
+            ps.setDouble(1, aplicacaoDefensivo.valor);
+            ps.setDouble(2, aplicacaoDefensivo.dose);
+            ps.setInt(3, aplicacaoDefensivo.defensivo.codigo);
+            ps.setInt(4, aplicacaoDefensivo.aplicacao.codigo);
+            ps.executeUpdate();
+            return true;
+        } 
+        catch (SQLException | ClassNotFoundException ex) {            
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            return false;
         }
     }
 }

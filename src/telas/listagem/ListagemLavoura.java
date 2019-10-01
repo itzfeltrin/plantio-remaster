@@ -197,7 +197,7 @@ public class ListagemLavoura extends javax.swing.JFrame {
                     aux = new Lavoura(nome, extensao);
                     aux.codigo = codigo;
                     ListagemLavouraDetalhada lld = new ListagemLavouraDetalhada(aux);
-                } catch (Exception ex) {
+                } catch (Exception ex) {                    
                     JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
                 }
             }
