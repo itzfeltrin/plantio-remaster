@@ -65,6 +65,11 @@ public class Main extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -280,7 +285,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -292,6 +297,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenu1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jMenu1.setText("Conta");
+        jMenu1.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jMenu1.setMargin(new java.awt.Insets(2, 2, 2, 25));
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/004-enter.png"))); // NOI18N
@@ -307,12 +313,56 @@ public class Main extends javax.swing.JFrame {
 
         jMenu2.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jMenu2.setText("Relatório");
+        jMenu2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jMenu2.setMargin(new java.awt.Insets(2, 2, 2, 25));
+
+        jMenuItem2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jMenuItem2.setText("Defensivo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jMenuItem3.setText("Planta");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
+        jMenu4.setText("Lavoura");
+        jMenu4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+
+        jMenuItem4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jMenuItem4.setText("Geral");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
+
+        jMenuItem5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jMenuItem5.setText("Específica");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem5);
+
+        jMenu2.add(jMenu4);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info.png"))); // NOI18N
         jMenu3.setText("Sobre");
+        jMenu3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jMenu3.setMargin(new java.awt.Insets(2, 25, 2, 2));
         jMenuBar1.add(jMenu3);
 
@@ -372,6 +422,23 @@ public class Main extends javax.swing.JFrame {
         TelaEntrega te = new TelaEntrega();
         te.setVisible(true);
     }//GEN-LAST:event_btnEntregaMouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        reports.GerarRelatorio.gerarDefensivo();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        reports.GerarRelatorio.gerarPlanta();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        reports.GerarRelatorio.gerarLavoura();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        TelaLavouraEspecifica tle = new TelaLavouraEspecifica();
+        tle.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
    
     public void setHoverEffects() {
         javax.swing.JLabel lista[] = {btnGerDefensivo, btnGerLavoura, btnGerPlanta, btnVisDefensivo, btnVisLavoura, btnVisPlanta, btnEntrega};
@@ -441,8 +508,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
